@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TestApplication {
 
 	public static void main(String[] args) {
-//		log.info("sdjfsdnf");
-//		log.error("巅峰哈哈哈对决");
+		log.info("sfgbfdj");
+		log.info("9999999999999999");
 		SpringApplication.run(TestApplication.class, args);
 	}
 }
