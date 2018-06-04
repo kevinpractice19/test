@@ -15,7 +15,10 @@ public class TestUtils {
             }
         }
         for (int x : number) {
+            System.out.println("=======================================");
             System.out.println(x);
         }
     }
+
+
 }
