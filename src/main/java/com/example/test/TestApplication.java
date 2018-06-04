@@ -10,7 +10,7 @@ public class TestApplication {
 
 	public static void main(String[] args) {
 //		log.info("sdjfsdnf");
-//		log.error("sdf");
+//		log.error("巅峰哈哈哈对决");
 		SpringApplication.run(TestApplication.class, args);
 	}
 }
