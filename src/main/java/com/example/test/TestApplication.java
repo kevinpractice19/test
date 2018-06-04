@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TestApplication {
 
 	public static void main(String[] args) {
-		log.info("sdjfsdnf");
-		log.error("sdf");
+//		log.info("sdjfsdnf");
+//		log.error("sdf");
 		SpringApplication.run(TestApplication.class, args);
 	}
 }
