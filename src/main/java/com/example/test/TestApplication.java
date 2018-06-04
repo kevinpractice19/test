@@ -10,6 +10,7 @@ public class TestApplication {
 
 	public static void main(String[] args) {
 		log.info("sdjfsdnf");
+		log.error("sdf");
 		SpringApplication.run(TestApplication.class, args);
 	}
 }
