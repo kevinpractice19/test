@@ -19,5 +19,9 @@ public class TestUtils {
         }
     }
 
+    public void bug(){
+        System.out.println("这是bug分支！！！");
+    }
+
 
 }
