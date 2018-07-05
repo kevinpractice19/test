@@ -21,6 +21,7 @@ public class TestUtils {
 
     public void bug(){
         System.out.println("这是bug分支！！！");
+        System.out.println("这是在feature分支新添加的内容");
     }
 
 
