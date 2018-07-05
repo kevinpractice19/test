@@ -21,7 +21,7 @@ public class TestUtils {
 
     public void bug(){
         System.out.println("这是bug分支！！！");
-        System.out.println("这是在master上面修改的内容！");
+        System.out.println("这是在master合并feature分支冲突后的结果上面修改的内容！");
     }
 
 
