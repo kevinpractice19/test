@@ -24,5 +24,10 @@ public class TestUtils {
         System.out.println("这是在master合并feature分支冲突后的结果上面修改的内容！");
     }
 
+    public boolean bool(){
+        System.out.println("dev分支");
+        return false;
+    }
+
 
 }
