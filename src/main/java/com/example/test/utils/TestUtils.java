@@ -29,5 +29,9 @@ public class TestUtils {
         return false;
     }
 
+    public boolean bug01(){
+        System.out.println("现在在bug01分支上面修复了一个bug！");
+        return false;
+    }
 
 }
