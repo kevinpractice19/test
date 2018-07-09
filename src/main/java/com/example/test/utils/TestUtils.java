@@ -47,4 +47,8 @@ public class TestUtils {
         return false;
     }
 
+    public void test1(){
+        System.out.println("测试1");
+    }
+
 }
