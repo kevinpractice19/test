@@ -43,7 +43,6 @@ public class TestUtils {
 
 
     public boolean test(){
-        System.out.println("现在在bug02分支上面修复了一个bug！");
         return false;
     }
 
