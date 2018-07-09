@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newnoa.govern.mapper.MenuMapper">
+    <cache type="com.newnoa.govern.config.cache.CaffeineCache"/>
+    <!-- 动态sql -->
+    <sql id="columnResult">
+            <![CDATA[
+
+
+
+                id,
+                parent_id,
+                menu_name,
+                menu_path,
+                menu_sort,
+                create_time,
+                update_time
+
+
+        ]]>
+        </sql>
+
+    <select id="selectMenuByIdList" resultType="menu">
+        SELECT
+        <include refid="columnResult"/>
+        FROM noa_govern_center.govern_menu where id in
+        <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+        and parent_id = 0 order by menu_sort
+    </select>
+
+
+    <select id="selectMenuByParentId" resultType="menu">
+        SELECT
+        <include refid="columnResult"/>
+        FROM noa_govern_center.govern_menu where parent_id = #{parentId} order by menu_sort
+    </select>
+
+    <select id="selectMenuByNameList" resultType="int">
+        SELECT id FROM noa_govern_center.govern_menu where menu_name in
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+
+    <select id="selectMenuById" resultType="menu">
+        SELECT
+        <include refid="columnResult"/>
+        FROM noa_govern_center.govern_menu WHERE id=#{menuId}
+    </select>
+
+
+    <!--添加菜单信息-->
+    <insert id="insertMenu" parameterType="menu" useGeneratedKeys="true" keyProperty="menu.id"
+            keyColumn="GENERATED_KEY">
+                insert into noa_govern_center.govern_menu(parent_id, menu_name , menu_path ,menu_sort)
+                values (#{menu.parentId}, #{menu.menuName}, #{menu.menuPath}, #{menu.menuSort})
+        </insert>
+
+    <!-- 根据id修改菜单信息-->
+    <update id="updateMenuById">
+        update noa_govern_center.govern_menu
+        <set>
+            id = #{menu.id} ,
+            <if test="menu.menuName != null and menu.menuName != ''">
+                menu_name = #{menu.menuName},
+            </if>
+            <if test="menu.menuPath != null and menu.menuPath != ''">
+                menu_path = #{menu.menuPath},
+            </if>
+            <if test="menu.menuSort != 0">
+                menu_sort = #{menu.menuSort},
+            </if>
+            <if test="menu.parentId != null">
+                parent_id = #{menu.parentId},
+            </if>
+            <if test="menu.updateTime != null">
+                update_time = #{menu.updateTime},
+            </if>
+        </set>
+        where id = #{menu.id}
+    </update>
+
+    <update id="deleteMenuById">
+                delete from noa_govern_center.govern_menu where id = #{id}
+        </update>
+
+    <select id="selectParentMenu" resultType="menu">
+        SELECT
+        <include refid="columnResult"/>
+        FROM noa_govern_center.govern_menu where parent_id = '0' order by menu_sort
+    </select>
+
+    <select id="selectMenuList" resultType="menu">
+        SELECT
+        <include refid="columnResult"/>
+        FROM noa_govern_center.govern_menu order by menu_sort
+    </select>
+
+    <select id="selectParentName" resultType="String">
+                SELECT menu_name
+                FROM noa_govern_center.govern_menu where id = #{parentId} order by menu_sort
+        </select>
+
+    <select id="selectMenuByMenuName" resultType="menu">
+                SELECT id FROM noa_govern_center.govern_menu WHERE menu_name=#{menuName}
+        </select>
+
+
+    <select id="selectMenuByParentIdList" resultType="menu">
+
+        SELECT
+        <include refid="columnResult"/>
+        FROM noa_govern_center.govern_menu WHERE parent_id =ANY(SELECT
+        parent_id
+        FROM noa_govern_center.govern_menu WHERE parent_id = #{parentId}) AND parent_id != 0 order by menu_sort
+
+    </select>
+
+</mapper>

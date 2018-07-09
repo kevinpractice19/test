@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newnoa.govern.mapper.RoleMenuMapper">
+        <cache type="com.newnoa.govern.config.cache.CaffeineCache"/>
+        <!-- 动态sql -->
+        <sql id="columnResult">
+            <![CDATA[
+
+
+                id,
+                role_id,
+                menu_id
+
+            ]]>
+        </sql>
+
+
+        <select id="selectRoleMenuIdById" resultType="int" >
+                SELECT DISTINCT menu_id FROM noa_govern_center.govern_role_menu where role_id in
+                <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+        </select>
+
+        <select id="selectRoleMenuByRoleId" resultType="int">
+                SELECT menu_id FROM noa_govern_center.govern_role_menu WHERE role_id = #{roleId}
+        </select>
+
+        <insert id="insertRoleMenu" parameterType="roleMenu">
+                INSERT INTO noa_govern_center.govern_role_menu(role_id,menu_id) VALUES(#{roleMenu.roleId},#{roleMenu.menuId})
+        </insert>
+
+
+        <delete id="deleteRoleMenuByMenuId">
+                DELETE FROM noa_govern_center.govern_role_menu WHERE menu_id=#{menuId}
+        </delete>
+
+
+        <delete id="deleteRoleMenuByMenuIdRoleId">
+                DELETE FROM noa_govern_center.govern_role_menu WHERE role_id=#{roleId} and menu_id=#{menuId}
+        </delete>
+
+
+</mapper>

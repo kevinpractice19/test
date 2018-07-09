@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newnoa.govern.mapper.UserRoleMapper">
+        <cache type="com.newnoa.govern.config.cache.CaffeineCache"/>
+        <!-- 动态sql -->
+        <sql id="columnResult">
+            <![CDATA[
+
+
+                id,
+                user_id,
+                role_id
+
+            ]]>
+        </sql>
+
+        <!--根据userid查询roleid-->
+        <select id="selectRoleIdById" resultType="int" >
+                SELECT
+                role_id
+                FROM noa_govern_center.govern_user_role where user_id = #{userId}
+        </select>
+
+
+        <!--添加信息 -->
+        <insert id="insertUserRole" parameterType="userRole">
+                insert into noa_govern_center.govern_user_role (user_id, role_id)
+                values (#{userRole.userId}, #{userRole.roleId})
+        </insert>
+
+
+        <!-- 根据roleId和userId删除用户角色关系-->
+        <delete id="deleteUserRoleById" >
+                DELETE FROM noa_govern_center.govern_user_role WHERE role_id = #{userRole.roleId} and user_id = #{userRole.userId}
+        </delete>
+
+
+</mapper>
