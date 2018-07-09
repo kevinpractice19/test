@@ -1,6 +1,6 @@
-package com.newnoa.govern.entity.po;
+package com.example.test.entity.po;
 
-import com.newnoa.govern.entity.vo.MenuVo;
+import com.example.test.entity.vo.MenuVo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,12 +31,4 @@ public class Menu {
 
         private List<Menu> menuList;
 
-
-        public Menu(MenuVo vo) {
-                this.id = vo.getMenuId();
-                this.parentId = vo.getParentId();
-                this.menuName = vo.getMenuName();
-                this.menuPath = vo.getMenuPath();
-                this.menuSort = vo.getMenuSort();
-        }
 }

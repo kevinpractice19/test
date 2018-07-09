@@ -1,9 +1,10 @@
-package com.newnoa.govern.service;
+package com.example.test.service;
 
-import com.baozun.framework.entity.PageInfo;
-import com.newnoa.govern.common.json.ResultJson;
-import com.newnoa.govern.entity.dto.*;
-import com.newnoa.govern.entity.vo.UserVo;
+
+import com.example.test.entity.dto.*;
+import com.example.test.entity.vo.UserVo;
+import com.example.test.utils.PageInfo;
+import com.example.test.utils.ResultJson;
 
 public interface UserService {
 

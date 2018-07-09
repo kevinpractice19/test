@@ -1,6 +1,6 @@
-package com.newnoa.govern.mapper;
+package com.example.test.mapper;
 
-import com.newnoa.govern.entity.po.UserRole;
+import com.example.test.entity.po.UserRole;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

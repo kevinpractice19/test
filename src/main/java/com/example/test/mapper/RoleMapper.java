@@ -1,6 +1,6 @@
-package com.newnoa.govern.mapper;
+package com.example.test.mapper;
 
-import com.newnoa.govern.entity.po.Role;
+import com.example.test.entity.po.Role;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -20,10 +20,10 @@ public interface RoleMapper {
         /**
          * 根据角色id查询角色信息
          *
-         * @param roleId
+         * @param id
          * @return
          */
-        Role selectRoleById(@Param("roleId") long roleId);
+        Role selectRoleById(@Param("id") long id);
 
         /**
          * 创建角色
@@ -72,6 +72,6 @@ public interface RoleMapper {
          * @return
          */
         List<Integer> selectIdByRoleName(@Param("list") List<String> list);
-
+//
 
 }

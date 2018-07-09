@@ -1,8 +1,9 @@
-package com.newnoa.govern.service;
+package com.example.test.service;
 
 
-import com.newnoa.govern.common.json.ResultJson;
-import com.newnoa.govern.entity.vo.RoleMenuVo;
+
+import com.example.test.entity.vo.RoleMenuVo;
+import com.example.test.utils.ResultJson;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public interface RoleMenuService {
 
         boolean deleteRoleMenuByMenuId(long menuId);
 
-        ResultJson<RoleMenuVo> insertOrUpdateRoleMenu(long roleId , List<String> menuNameList);
+        ResultJson<RoleMenuVo> insertOrUpdateRoleMenu(long roleId, List<String> menuNameList);
 
 }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.newnoa.govern.mapper.UserMapper">
-    <cache type="com.newnoa.govern.config.cache.CaffeineCache"/>
+<mapper namespace="com.example.test.mapper.UserMapper">
+
     <!-- 动态sql -->
     <sql id="columnResult">
             <![CDATA[
@@ -24,13 +24,13 @@
     <select id="selectUserById" resultType="user">
         SELECT
         <include refid="columnResult"/>
-        from noa_govern_center.govern_user WHERE id = #{userId}
+        from authority_management.govern_user WHERE id = #{userId}
     </select>
 
     <select id="selectUser" resultType="user">
         SELECT
         <include refid="columnResult"/>
-        from noa_govern_center.govern_user
+        from authority_management.govern_user
         <where>
             <if test="account != null and account != ''">
                 AND account LIKE concat(#{account},"%")
@@ -44,41 +44,41 @@
     <select id="getLogin" resultType="user">
         SELECT
         <include refid="columnResult"/>
-        from noa_govern_center.govern_user WHERE account=#{account} and password=#{password} and status='1'
+        from authority_management.govern_user WHERE account=#{account} and password=#{password} and status='1'
     </select>
 
 
     <select id="selectUserByAccount" resultType="user">
         SELECT
         <include refid="columnResult"/>
-        from noa_govern_center.govern_user WHERE account=#{account}
+        from authority_management.govern_user WHERE account=#{account}
     </select>
 
 
     <select id="selectUserByAccountCount" resultType="int">
                 SELECT
                 COUNT(*)
-                from noa_govern_center.govern_user WHERE account=#{account}
+                from authority_management.govern_user WHERE account=#{account}
         </select>
 
 
     <insert id="insertUser" parameterType="user" useGeneratedKeys="true" keyProperty="user.id"
             keyColumn="GENERATED_KEY">
-                INSERT into noa_govern_center.govern_user(user_name,account,password,status,last_login_ip, last_login_time)
+                INSERT into authority_management.govern_user(user_name,account,password,status,last_login_ip, last_login_time)
                 VALUES (#{user.userName},#{user.account},#{user.password},1,#{user.lastLoginIp},#{user.lastLoginTime})
         </insert>
 
     <update id="updateUserStatusById">
-        UPDATE noa_govern_center.govern_user SET status= #{status} WHERE id=#{userId}
+        UPDATE authority_management.govern_user SET status= #{status} WHERE id=#{userId}
     </update>
 
     <update id="updateUserByPassword" parameterType="java.util.Map">
-                UPDATE noa_govern_center.govern_user SET password=#{newPassword} WHERE id=#{userId} and password=#{password}
+                UPDATE authority_management.govern_user SET password=#{newPassword} WHERE id=#{userId} and password=#{password}
         </update>
 
 
     <update id="updateUserById">
-        UPDATE noa_govern_center.govern_user
+        UPDATE authority_management.govern_user
         <set>
             <if test="user.userName!=null and user.userName!=''">
                 user_name=#{user.userName},
@@ -102,14 +102,14 @@
     <select id="selectUserByToken" resultType="user">
         SELECT
         <include refid="columnResult"/>
-        from noa_govern_center.govern_user WHERE user_token=#{userToken}
+        from authority_management.govern_user WHERE user_token=#{userToken}
     </select>
 
     <update id="updateUserByUserToken" parameterType="user">
-        UPDATE noa_govern_center.govern_user SET user_token=#{user.userToken} WHERE id=#{user.id}
+        UPDATE authority_management.govern_user SET user_token=#{user.userToken} WHERE id=#{user.id}
     </update>
 
     <update id="resetPassword" parameterType="user">
-        UPDATE noa_govern_center.govern_user SET password=#{password} WHERE account=#{account}
+        UPDATE authority_management.govern_user SET password=#{password} WHERE account=#{account}
     </update>
 </mapper>

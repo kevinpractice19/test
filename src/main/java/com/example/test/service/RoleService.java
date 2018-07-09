@@ -1,8 +1,9 @@
-package com.newnoa.govern.service;
+package com.example.test.service;
 
-import com.baozun.framework.entity.PageInfo;
-import com.newnoa.govern.common.json.ResultJson;
-import com.newnoa.govern.entity.vo.RoleVo;
+
+import com.example.test.entity.vo.RoleVo;
+import com.example.test.utils.PageInfo;
+import com.example.test.utils.ResultJson;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public interface RoleService {
 
         ResultJson<RoleVo> selectRoleById(long roleId);
 
-        ResultJson<RoleVo> insertRole(RoleVo roleVo,String menuName);
+        ResultJson<RoleVo> insertRole(RoleVo roleVo, String menuName);
 
         ResultJson<Boolean> deleteRoleById(long roleId);
 

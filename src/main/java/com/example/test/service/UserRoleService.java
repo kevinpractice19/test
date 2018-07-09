@@ -1,7 +1,8 @@
-package com.newnoa.govern.service;
+package com.example.test.service;
 
-import com.newnoa.govern.common.json.ResultJson;
-import com.newnoa.govern.entity.vo.UserRoleVo;
+
+import com.example.test.entity.vo.UserRoleVo;
+import com.example.test.utils.ResultJson;
 
 import java.util.List;
 

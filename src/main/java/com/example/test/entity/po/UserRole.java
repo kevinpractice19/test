@@ -1,6 +1,6 @@
-package com.newnoa.govern.entity.po;
+package com.example.test.entity.po;
 
-import com.newnoa.govern.entity.vo.UserRoleVo;
+import com.example.test.entity.vo.UserRoleVo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,11 +17,6 @@ public class UserRole {
 
         private long roleId;
 
-        public UserRole(UserRoleVo vo) {
-                this.id = vo.getUserRoleId();
-                this.userId = vo.getUserId();
-                this.roleId = vo.getRoleId();
-        }
 
         public UserRole(Long userId,Long roleId){
                 this.userId = userId;

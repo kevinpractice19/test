@@ -1,6 +1,5 @@
-package com.newnoa.govern.entity.po;
+package com.example.test.entity.po;
 
-import com.newnoa.govern.entity.vo.RoleMenuVo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,12 +19,6 @@ public class RoleMenu {
         public RoleMenu(Long roleId , Long menuId){
                 this.roleId = roleId;
                 this.menuId = menuId;
-        }
-
-        public RoleMenu(RoleMenuVo vo){
-                this.id = vo.getRoleMenuId();
-                this.roleId =vo.getRoleId();
-                this.menuId = vo.getMenuId();
         }
 
 }

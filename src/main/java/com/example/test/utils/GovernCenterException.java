@@ -1,20 +1,19 @@
-package com.newnoa.govern.common.util;
+package com.example.test.utils;
 
-import com.newnoa.framework.exception.NoaException;
 
-public class GovernCenterException extends NoaException {
+public class GovernCenterException extends RuntimeException {
 
+
+    private Integer code;
 
     public GovernCenterException(EnumsUtils enumsUtils) {
         super(enumsUtils.getMsg());
-        super.setErrCode(enumsUtils.getCode());
-        super.setErrMsg(enumsUtils.getMsg());
+        this.code = enumsUtils.getCode();
     }
 
     public GovernCenterException(Integer code, String msg) {
         super(msg);
-        super.setErrCode(code);
-        super.setErrMsg(msg);
+        this.code = code;
     }
 
 

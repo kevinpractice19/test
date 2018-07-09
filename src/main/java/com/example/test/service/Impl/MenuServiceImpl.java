@@ -1,23 +1,18 @@
-package com.newnoa.govern.service.impl;
+package com.example.test.service.Impl;
 
-import com.baozun.framework.entity.PageInfo;
+import com.example.test.entity.dto.MenuCreateDTO;
+import com.example.test.entity.dto.MenuModifyDTO;
+import com.example.test.entity.po.Menu;
+import com.example.test.entity.po.RoleMenu;
+import com.example.test.entity.vo.MenuVo;
+import com.example.test.mapper.MenuMapper;
+import com.example.test.mapper.RoleMenuMapper;
+import com.example.test.service.MenuService;
+import com.example.test.service.RoleMenuService;
+import com.example.test.service.UserRoleService;
+import com.example.test.utils.*;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.newnoa.govern.common.json.ResultJson;
-import com.newnoa.govern.common.util.Constant;
-import com.newnoa.govern.common.util.EnumsUtils;
-import com.newnoa.govern.common.util.GovernCenterException;
-import com.newnoa.govern.entity.dto.MenuCreateDTO;
-import com.newnoa.govern.entity.dto.MenuModifyDTO;
-import com.newnoa.govern.entity.po.Menu;
-import com.newnoa.govern.entity.po.RoleMenu;
-import com.newnoa.govern.entity.vo.MenuVo;
-import com.newnoa.govern.mapper.MenuMapper;
-import com.newnoa.govern.mapper.RoleMenuMapper;
-import com.newnoa.govern.service.MenuService;
-import com.newnoa.govern.service.OperationRecordService;
-import com.newnoa.govern.service.RoleMenuService;
-import com.newnoa.govern.service.UserRoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +42,6 @@ public class MenuServiceImpl implements MenuService {
 
     @Autowired
     private RoleMenuMapper roleMenuMapper;
-
-    @Autowired
-    private OperationRecordService operationRecordService;
 
     @Override
     public ResultJson<List<MenuVo>> listParentMenuByUserId(long userId) {
@@ -182,7 +174,6 @@ public class MenuServiceImpl implements MenuService {
         if (!this.roleMenuService.deleteRoleMenuByMenuId(menuId)) {
             return new ResultJson<>(EnumsUtils.DELETE_FAIL);
         }
-        this.operationRecordService.insertOperationRecord(menuId, Constant.REMOVE, Constant.MENU_INFO);
         return new ResultJson<>(EnumsUtils.SUCCESS);
     }
 
@@ -234,7 +225,6 @@ public class MenuServiceImpl implements MenuService {
         } catch (GovernCenterException e) {
             throw new GovernCenterException(220, e.getMessage());
         }
-        this.operationRecordService.insertOperationRecord(menu.getId(), Constant.MODIFY, Constant.MENU_INFO);
         return new ResultJson<>(EnumsUtils.SUCCESS, new MenuVo(this.menuMapper.selectMenuById(menu.getId())));
     }
 

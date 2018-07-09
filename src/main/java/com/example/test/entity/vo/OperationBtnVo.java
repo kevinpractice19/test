@@ -1,9 +1,7 @@
-package com.example.test.entity.po;
+package com.example.test.entity.vo;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.example.test.entity.po.OperationBtn;
+import lombok.*;
 
 import java.util.Date;
 
@@ -11,7 +9,8 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OperationBtn {
+@ToString
+public class OperationBtnVo {
 
     private long id;
 
@@ -25,5 +24,13 @@ public class OperationBtn {
     private Date createTime;
     private Date updateTime;
 
+    public OperationBtnVo(OperationBtn operationBtn) {
+        this.id = operationBtn.getId();
+        this.menuId = operationBtn.getMenuId();
+        this.btnCode = operationBtn.getBtnCode();
+        this.btnName = operationBtn.getBtnName();
+        this.btnTitle = operationBtn.getBtnTitle();
+        this.description = operationBtn.getDescription();
+    }
 
 }

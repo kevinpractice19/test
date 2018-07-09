@@ -1,12 +1,13 @@
-package com.newnoa.govern.service.impl;
+package com.example.test.service.Impl;
 
-import com.newnoa.govern.common.json.ResultJson;
-import com.newnoa.govern.common.util.EnumsUtils;
-import com.newnoa.govern.entity.po.UserRole;
-import com.newnoa.govern.entity.vo.UserRoleVo;
-import com.newnoa.govern.mapper.RoleMapper;
-import com.newnoa.govern.mapper.UserRoleMapper;
-import com.newnoa.govern.service.UserRoleService;
+
+import com.example.test.entity.po.UserRole;
+import com.example.test.entity.vo.UserRoleVo;
+import com.example.test.mapper.RoleMapper;
+import com.example.test.mapper.UserRoleMapper;
+import com.example.test.service.UserRoleService;
+import com.example.test.utils.EnumsUtils;
+import com.example.test.utils.ResultJson;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

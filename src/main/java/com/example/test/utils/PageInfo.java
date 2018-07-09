@@ -1,4 +1,4 @@
-package com.newnoa.status.common.entity;
+package com.example.test.utils;
 
 import lombok.Getter;
 import lombok.Setter;

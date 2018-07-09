@@ -1,4 +1,4 @@
-package com.newnoa.govern.common.util;
+package com.example.test.utils;
 
 import javax.servlet.http.HttpServletRequest;
 

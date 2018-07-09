@@ -1,21 +1,20 @@
-package com.newnoa.govern.service.impl;
+package com.example.test.service.Impl;
 
-import com.baozun.framework.entity.PageInfo;
+
+import com.example.test.entity.po.Menu;
+import com.example.test.entity.po.Role;
+import com.example.test.entity.po.RoleMenu;
+import com.example.test.entity.vo.RoleVo;
+import com.example.test.mapper.MenuMapper;
+import com.example.test.mapper.RoleMapper;
+import com.example.test.mapper.RoleMenuMapper;
+import com.example.test.service.RoleService;
+import com.example.test.utils.Constant;
+import com.example.test.utils.EnumsUtils;
+import com.example.test.utils.PageInfo;
+import com.example.test.utils.ResultJson;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.newnoa.govern.common.json.ResultJson;
-import com.newnoa.govern.common.util.Constant;
-import com.newnoa.govern.common.util.EnumsUtils;
-import com.newnoa.govern.entity.po.Menu;
-import com.newnoa.govern.entity.po.Role;
-import com.newnoa.govern.entity.po.RoleMenu;
-import com.newnoa.govern.entity.vo.RoleVo;
-import com.newnoa.govern.mapper.MenuMapper;
-import com.newnoa.govern.mapper.RoleMapper;
-import com.newnoa.govern.mapper.RoleMenuMapper;
-import com.newnoa.govern.service.OperationRecordService;
-import com.newnoa.govern.service.RoleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
@@ -37,8 +36,6 @@ public class RoleServiceImpl implements RoleService {
     @Resource(name = "roleMenuMapper")
     private RoleMenuMapper roleMenuMapper;
 
-    @Autowired
-    private OperationRecordService operationRecordService;
 
     @Override
     public ResultJson<PageInfo<RoleVo>> selectRole(int pageNum, int pageSize) {
@@ -58,7 +55,6 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    @CachePut(value = "roleVo", key = "#roleId+'roleVo'")
     public ResultJson<RoleVo> selectRoleById(long roleId) {
         Role role = this.roleMapper.selectRoleById(roleId);
         return role == null ? new ResultJson<>(EnumsUtils.FIND_FAIL) : new ResultJson<>(EnumsUtils.SUCCESS, new RoleVo(role));
@@ -83,7 +79,6 @@ public class RoleServiceImpl implements RoleService {
                 }
             }
         }
-        this.operationRecordService.insertOperationRecord(role1.getId(), Constant.INSERT, Constant.ROLE_INFO);
         return new ResultJson<>(EnumsUtils.SUCCESS, this.selectRoleById(role1.getId()).getData());
     }
 
@@ -95,7 +90,6 @@ public class RoleServiceImpl implements RoleService {
             return new ResultJson<>(EnumsUtils.FIND_FAIL);
         }
         if (this.roleMapper.deleteRoleById(roleId)) {
-            this.operationRecordService.insertOperationRecord(roleId, Constant.REMOVE, Constant.ROLE_INFO);
             return new ResultJson<>(EnumsUtils.SUCCESS, true);
         }
         return new ResultJson<>(EnumsUtils.DELETE_FAIL, false);
@@ -107,7 +101,6 @@ public class RoleServiceImpl implements RoleService {
     public ResultJson<RoleVo> updateRoleById(RoleVo roleVo) {
         Role role = new Role(roleVo);
         if (this.roleMapper.updateRoleById(role)) {
-            this.operationRecordService.insertOperationRecord(role.getId(), Constant.MODIFY, Constant.ROLE_INFO);
             return new ResultJson<>(EnumsUtils.SUCCESS, new RoleVo(this.roleMapper.selectRoleById(role.getId())));
         }
         return new ResultJson<>(EnumsUtils.UPDATE_FAIL);

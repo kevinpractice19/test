@@ -1,15 +1,11 @@
-package com.newnoa.govern.entity.vo;
+package com.example.test.entity.vo;
 
-import com.baozun.framework.entity.BaseVo;
-import com.newnoa.govern.common.json.ObjectUtils;
-import com.newnoa.govern.common.util.Constant;
-import com.newnoa.govern.entity.po.Menu;
+import com.example.test.entity.po.Menu;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.List;
 
@@ -17,7 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MenuVo extends BaseVo implements Serializable {
+public class MenuVo implements Serializable {
 
         private long menuId;
 
@@ -43,8 +39,6 @@ public class MenuVo extends BaseVo implements Serializable {
                 this.menuName = menu.getMenuName();
                 this.menuPath = menu.getMenuPath();
                 this.menuSort = menu.getMenuSort();
-                this.createTime = super.dateToString(menu.getCreateTime(), Constant.TIME_FORMAT);
-                this.updateTime = menu.getUpdateTime() == null ? null : super.dateToString(menu.getUpdateTime(),Constant.TIME_FORMAT);
         }
 
         public MenuVo(Menu menu, String parentName) {
@@ -56,13 +50,7 @@ public class MenuVo extends BaseVo implements Serializable {
         }
 
 
-        public MenuVo(HttpServletRequest request) {
-                this.menuId = ObjectUtils.objectToLong(request.getParameter("menuId"));
-                this.parentId = ObjectUtils.objectToInt(request.getParameter("parentId"));
-                this.menuName = ObjectUtils.objectToString(request.getParameter("menuName"));
-                this.menuPath = ObjectUtils.objectToString(request.getParameter("menuPath"));
-                this.menuSort = ObjectUtils.objectToInt(request.getParameter("menuSort"));
-        }
+
 
 
 }

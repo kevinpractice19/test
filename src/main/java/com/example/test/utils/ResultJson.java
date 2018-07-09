@@ -1,7 +1,9 @@
-package com.newnoa.govern.common.json;
+package com.example.test.utils;
 
-import com.newnoa.govern.common.util.EnumsUtils;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 

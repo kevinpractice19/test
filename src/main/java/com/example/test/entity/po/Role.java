@@ -1,6 +1,6 @@
-package com.example.test.po;
+package com.example.test.entity.po;
 
-import com.example.test.vo.RoleVo;
+import com.example.test.entity.vo.RoleVo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,23 +13,23 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Role {
-        private long id;
+    private long id;
 
-        private String roleName;
+    private String roleName;
 
-        private String remark;
+    private String remark;
 
-        private int status;
+    private int status;
 
-        private Date createTime;
+    private Date createTime;
 
-        private Date updateTime;
+    private Date updateTime;
 
-        public Role(RoleVo vo) {
-                this.id = vo.getRoleId();
-                this.roleName = vo.getRoleName();
-                this.remark = vo.getRemark();
-                this.status = vo.getStatus();
-        }
+    public Role(RoleVo vo) {
+        this.id = vo.getRoleId();
+        this.roleName = vo.getRoleName();
+        this.remark = vo.getRemark();
+        this.status = vo.getStatus();
+    }
 
 }

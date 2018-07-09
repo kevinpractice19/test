@@ -1,9 +1,7 @@
-package com.newnoa.govern.entity.vo;
+package com.example.test.entity.vo;
 
 
-import com.baozun.framework.entity.BaseVo;
-import com.newnoa.govern.common.util.Constant;
-import com.newnoa.govern.entity.po.User;
+import com.example.test.entity.po.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +13,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserVo extends BaseVo implements Serializable {
+public class UserVo implements Serializable {
 
     private long userId;
 
@@ -23,7 +21,6 @@ public class UserVo extends BaseVo implements Serializable {
 
     private String account;
 
-//    @JSONField(serialize = false)
     private String password;
 
     private int status;
@@ -46,9 +43,6 @@ public class UserVo extends BaseVo implements Serializable {
         this.status = user.getStatus();
         this.userToken = user.getUserToken();
         this.lastLoginIp = user.getLastLoginIp();
-        this.createTime = super.dateToString(user.getCreateTime(), Constant.TIME_FORMAT);
-        this.updateTime = super.dateToString(user.getUpdateTime(), Constant.TIME_FORMAT);
-        this.lastLoginTime = user.getLastLoginTime() == null ? null : super.dateToString(user.getLastLoginTime(), Constant.TIME_FORMAT);
     }
 
     public UserVo(User user, String password) {
@@ -59,9 +53,6 @@ public class UserVo extends BaseVo implements Serializable {
         this.status = user.getStatus();
         this.userToken = user.getUserToken();
         this.lastLoginIp = user.getLastLoginIp();
-        this.createTime = super.dateToString(user.getCreateTime(), Constant.TIME_FORMAT);
-        this.updateTime = super.dateToString(user.getUpdateTime(), Constant.TIME_FORMAT);
-        this.lastLoginTime = user.getLastLoginTime() == null ? null : super.dateToString(user.getLastLoginTime(), Constant.TIME_FORMAT);
     }
 
 

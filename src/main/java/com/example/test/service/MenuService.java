@@ -1,10 +1,10 @@
-package com.newnoa.govern.service;
+package com.example.test.service;
 
-import com.baozun.framework.entity.PageInfo;
-import com.newnoa.govern.common.json.ResultJson;
-import com.newnoa.govern.entity.dto.MenuCreateDTO;
-import com.newnoa.govern.entity.dto.MenuModifyDTO;
-import com.newnoa.govern.entity.vo.MenuVo;
+import com.example.test.entity.dto.MenuCreateDTO;
+import com.example.test.entity.dto.MenuModifyDTO;
+import com.example.test.entity.vo.MenuVo;
+import com.example.test.utils.PageInfo;
+import com.example.test.utils.ResultJson;
 
 import java.util.List;
 

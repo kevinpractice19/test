@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.test.mapper.RoleMapper">
+
         <!-- 动态sql -->
         <sql id="columnResult">
             <![CDATA[
@@ -24,7 +25,7 @@
         <!--</select>-->
 
 
-        <select id="selectRoleById" resultType="com.example.test.po.Role" parameterType="java.lang.Long">
+        <select id="selectRoleById" resultType="role" parameterType="java.lang.Long">
                 SELECT
                 <include refid="columnResult"/>
                 from authority_management.govern_role WHERE id=#{id} and status='1'

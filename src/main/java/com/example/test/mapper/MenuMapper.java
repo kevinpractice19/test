@@ -1,6 +1,6 @@
-package com.newnoa.govern.mapper;
+package com.example.test.mapper;
 
-import com.newnoa.govern.entity.po.Menu;
+import com.example.test.entity.po.Menu;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -48,7 +48,7 @@ public interface MenuMapper {
          * @param menuName
          * @return
          */
-        Menu selectMenuByMenuName(@Param("menuName")String menuName);
+        Menu selectMenuByMenuName(@Param("menuName") String menuName);
 
         /**
          * 添加菜单
