@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.joda.time.DateTime;
 
 import java.io.Serializable;
 
@@ -43,6 +44,8 @@ public class UserVo implements Serializable {
         this.status = user.getStatus();
         this.userToken = user.getUserToken();
         this.lastLoginIp = user.getLastLoginIp();
+        this.createTime = new DateTime(user.getCreateTime()).toString("yyyy-MM-dd HH:mm:ss") ;
+        this.updateTime = new DateTime(user.getUpdateTime()).toString("yyyy-MM-dd HH:mm:ss") ;
     }
 
     public UserVo(User user, String password) {

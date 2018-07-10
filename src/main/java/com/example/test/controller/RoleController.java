@@ -3,6 +3,7 @@ package com.example.test.controller;
 import com.example.test.entity.vo.RoleVo;
 import com.example.test.service.RoleService;
 import com.example.test.utils.ResultJson;
+import io.swagger.annotations.ApiImplicitParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,6 +35,7 @@ public class RoleController {
 
 
     @RequestMapping(value = "/selectRoleById.do", method = RequestMethod.GET)
+//    @ApiImplicitParam(value = "roleId", name = "roleId")
     public ResultJson<RoleVo> selectRoleById(@RequestParam("roleId") long roleId) {
         return this.roleService.selectRoleById(roleId);
     }

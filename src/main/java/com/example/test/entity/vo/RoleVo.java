@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.joda.time.DateTime;
 
 import java.io.Serializable;
 import java.util.List;
@@ -33,6 +34,8 @@ public class RoleVo implements Serializable {
         this.roleName = role.getRoleName();
         this.remark = role.getRemark();
         this.status = role.getStatus();
+        this.createTime = new DateTime(role.getCreateTime()).toString("yyyy-MM-dd HH:mm:ss") ;
+        this.updateTime = new DateTime(role.getUpdateTime()).toString("yyyy-MM-dd HH:mm:ss") ;
     }
 
 }

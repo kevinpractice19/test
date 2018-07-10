@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.joda.time.DateTime;
 
 import java.io.Serializable;
 import java.util.List;
@@ -39,6 +40,8 @@ public class MenuVo implements Serializable {
                 this.menuName = menu.getMenuName();
                 this.menuPath = menu.getMenuPath();
                 this.menuSort = menu.getMenuSort();
+                this.createTime = new DateTime(menu.getCreateTime()).toString("yyyy-MM-dd HH:mm:ss") ;
+                this.updateTime = new DateTime(menu.getUpdateTime()).toString("yyyy-MM-dd HH:mm:ss") ;
         }
 
         public MenuVo(Menu menu, String parentName) {

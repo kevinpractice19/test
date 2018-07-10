@@ -2,6 +2,7 @@ package com.example.test.entity.vo;
 
 import com.example.test.entity.po.OperationBtn;
 import lombok.*;
+import org.joda.time.DateTime;
 
 import java.util.Date;
 
@@ -21,8 +22,8 @@ public class OperationBtnVo {
     private String btnTitle;
     private String description;
 
-    private Date createTime;
-    private Date updateTime;
+    private String createTime;
+    private String updateTime;
 
     public OperationBtnVo(OperationBtn operationBtn) {
         this.id = operationBtn.getId();
@@ -31,6 +32,8 @@ public class OperationBtnVo {
         this.btnName = operationBtn.getBtnName();
         this.btnTitle = operationBtn.getBtnTitle();
         this.description = operationBtn.getDescription();
+        this.createTime = new DateTime(operationBtn.getCreateTime()).toString("yyyy-MM-dd HH:mm:ss") ;
+        this.updateTime = new DateTime(operationBtn.getUpdateTime()).toString("yyyy-MM-dd HH:mm:ss") ;
     }
 
 }
