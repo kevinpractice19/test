@@ -13,8 +13,10 @@ public class RoleMenu {
         private long id;
 
         private long roleId;
-
+        private long operationId;
         private long menuId;
+        private int menuType;
+
 
         public RoleMenu(Long roleId , Long menuId){
                 this.roleId = roleId;

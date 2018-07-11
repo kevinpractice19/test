@@ -1,6 +1,7 @@
 package com.example.test.entity.vo;
 
 import com.example.test.entity.po.Menu;
+import com.example.test.entity.po.OperationBtn;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,13 +9,18 @@ import lombok.Setter;
 import org.joda.time.DateTime;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+//@NoArgsConstructor
+//@AllArgsConstructor
 public class MenuVo implements Serializable {
+
+        public MenuVo(){
+                operationBtnList = new ArrayList<>();
+        }
 
         private long menuId;
 
@@ -33,6 +39,8 @@ public class MenuVo implements Serializable {
         private String updateTime;
 
         private List<MenuVo> menuVoList;
+
+        private List<OperationBtn> operationBtnList;
 
         public MenuVo(Menu menu) {
                 this.menuId = menu.getId();

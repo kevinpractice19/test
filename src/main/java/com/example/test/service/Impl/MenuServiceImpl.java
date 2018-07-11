@@ -3,9 +3,11 @@ package com.example.test.service.Impl;
 import com.example.test.entity.dto.MenuCreateDTO;
 import com.example.test.entity.dto.MenuModifyDTO;
 import com.example.test.entity.po.Menu;
+import com.example.test.entity.po.OperationBtn;
 import com.example.test.entity.po.RoleMenu;
 import com.example.test.entity.vo.MenuVo;
 import com.example.test.mapper.MenuMapper;
+import com.example.test.mapper.OperationBtnMapper;
 import com.example.test.mapper.RoleMenuMapper;
 import com.example.test.service.MenuService;
 import com.example.test.service.RoleMenuService;
@@ -43,26 +45,37 @@ public class MenuServiceImpl implements MenuService {
     @Autowired
     private RoleMenuMapper roleMenuMapper;
 
+    @Autowired
+    private OperationBtnMapper operationBtnMapper;
+
     @Override
     public ResultJson<List<MenuVo>> listParentMenuByUserId(long userId) {
         List<Integer> roleIdList = this.userRoleService.getRoleIdListById(userId);
         List<Integer> menuIdList = this.roleMenuService.selectRoleMenuIdById(roleIdList);
-        List<Menu> menuList = this.menuMapper.selectMenuByIdList(menuIdList);
+        List<Integer> operationIdList = this.roleMenuService.selectRoleMenuByOperationBtnId(roleIdList);  //根据roleId查询出该角色所拥有所有按钮权限
+        List<OperationBtn> operationBtnList = this.operationBtnMapper.selectOperationBtnByIdList(operationIdList); //根据按钮idList查询出按钮所有信息
+        List<Menu> menuList = this.menuMapper.selectMenuByIdList(menuIdList); //查出所有顶级菜单
         List<MenuVo> result = new ArrayList<>();
         for (Menu menu : menuList) {
-            result.add(this.getSubProject(new MenuVo(menu)));
+            result.add(this.getSubMenu(new MenuVo(menu), operationBtnList));
         }
         return new ResultJson<>(EnumsUtils.SUCCESS, result);
     }
 
-    private MenuVo getSubProject(MenuVo menuVo) {
+    private MenuVo getSubMenu(MenuVo menuVo, List<OperationBtn> operationBtnList) {
         if (menuVo != null) {
-            List<Menu> projectList = menuMapper.selectMenuByParentId(menuVo.getMenuId());
-            List<MenuVo> projectVoList = this.poTransformationVoMethod(projectList);
-            if (!CollectionUtils.isEmpty(projectVoList)) {
-                menuVo.setMenuVoList(projectVoList);
-                for (MenuVo subProject : projectVoList) {
-                    this.getSubProject(subProject);
+            List<Menu> menuList = menuMapper.selectMenuByParentId(menuVo.getMenuId());
+            List<MenuVo> menuVoList = this.poTransformationVoMethod(menuList);
+            if (!CollectionUtils.isEmpty(menuVoList)) {
+                menuVo.setMenuVoList(menuVoList);
+                for (MenuVo subMenu : menuVoList) {
+                    List<OperationBtn> btnList = this.operationBtnMapper.selectOperationBtnByMenuId(subMenu.getMenuId());
+                    for (OperationBtn operationBtn : btnList) {
+                        if (operationBtnList.contains(operationBtn)) {
+                            subMenu.getOperationBtnList().add(operationBtn);
+                        }
+                    }
+                    this.getSubMenu(subMenu, operationBtnList);
                 }
             }
         }
@@ -70,9 +83,9 @@ public class MenuServiceImpl implements MenuService {
     }
 
 
-    private List<MenuVo> poTransformationVoMethod(List<Menu> projectList) {
-        List<MenuVo> resultVo = new ArrayList<>(projectList.size());
-        for (Menu menu : projectList) {
+    private List<MenuVo> poTransformationVoMethod(List<Menu> menuList) {
+        List<MenuVo> resultVo = new ArrayList<>(menuList.size());
+        for (Menu menu : menuList) {
             MenuVo menuVo = new MenuVo();
             menuVo.setMenuId(menu.getId());
             BeanUtils.copyProperties(menu, menuVo);

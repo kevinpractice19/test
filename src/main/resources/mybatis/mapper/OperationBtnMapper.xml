@@ -63,15 +63,18 @@
         <!--where id = #{menu.id}-->
     <!--</update>-->
 
-    <!--<update id="deleteMenuById">-->
-                <!--delete from authority_management.govern_menu where id = #{id}-->
-        <!--</update>-->
+    <select id="selectOperationBtnByIdList" resultType="operationBtn" >
+        SELECT <include refid="columnResult"/> FROM authority_management.govern_operation_btn where id in
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
 
-    <!--<select id="selectParentMenu" resultType="menu">-->
-        <!--SELECT-->
-        <!--<include refid="columnResult"/>-->
-        <!--FROM authority_management.govern_menu where parent_id = '0' order by menu_sort-->
-    <!--</select>-->
+    <select id="selectOperationBtnByMenuId" resultType="operationBtn">
+        SELECT
+        <include refid="columnResult"/>
+        FROM authority_management.govern_operation_btn where menu_id = #{menuId}
+    </select>
 
     <!--<select id="selectMenuList" resultType="menu">-->
         <!--SELECT-->

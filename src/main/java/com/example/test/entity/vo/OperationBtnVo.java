@@ -15,7 +15,7 @@ public class OperationBtnVo {
 
     private long id;
 
-    private String menuId;
+    private long menuId;
 
     private String btnCode;
     private String btnName;

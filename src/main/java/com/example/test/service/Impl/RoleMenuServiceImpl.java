@@ -32,6 +32,11 @@ public class RoleMenuServiceImpl implements RoleMenuService {
         return this.roleMenuMapper.deleteRoleMenuByMenuId(menuId);
     }
 
+    @Override
+    public List<Integer> selectRoleMenuByOperationBtnId(List<Integer> list) {
+        return this.roleMenuMapper.selectRoleMenuByOperationBtnId(list);
+    }
+
     public ResultJson<RoleMenuVo> insertOrUpdateRoleMenu(long roleId, List<String> menuNameList) {
         List<Integer> menuIdListNew = menuMapper.selectMenuByNameList(menuNameList);
         if (menuIdListNew.isEmpty()) {

@@ -14,4 +14,8 @@ public interface OperationBtnMapper {
     OperationBtn selectOperationBtnById(@Param("id") long id);
 
     List<OperationBtn> selectOperationBtn();
+
+    List<OperationBtn> selectOperationBtnByMenuId(@Param("menuId") long menuId);
+
+    List<OperationBtn> selectOperationBtnByIdList(@Param("list") List<Integer> list);
 }

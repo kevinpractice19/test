@@ -18,11 +18,17 @@ public class RoleMenuVo implements Serializable {
     private long roleId;
 
     private long menuId;
+    private long operationId;
+
+    private int menuType;
 
     public RoleMenuVo(RoleMenu roleMenu) {
         this.roleMenuId = roleMenu.getId();
         this.roleId = roleMenu.getRoleId();
         this.menuId = roleMenu.getMenuId();
+        this.operationId = roleMenu.getOperationId();
+        this.menuType = roleMenu.getMenuType();
+
     }
 
 

@@ -13,7 +13,7 @@ public class OperationBtn {
 
     private long id;
 
-    private String menuId;
+    private long menuId;
 
     private String btnCode;
     private String btnName;
@@ -24,4 +24,18 @@ public class OperationBtn {
     private Date updateTime;
 
 
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof OperationBtn) {
+            OperationBtn operationBtn = (OperationBtn) obj;
+            return this.menuId==(operationBtn.getMenuId()) && this.btnCode.equals(operationBtn.getBtnCode()) && this.btnName.equals(operationBtn.getBtnName()) && btnTitle.equals(operationBtn.getBtnTitle())
+                    && this.description.equals(operationBtn.getDescription()) && this.createTime.equals(operationBtn.getCreateTime()) && this.updateTime.equals(operationBtn.getUpdateTime());
+        }
+        return super.equals(obj);
+    }
 }

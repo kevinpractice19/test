@@ -9,7 +9,9 @@
 
                 id,
                 role_id,
-                menu_id
+                menu_id,
+                operation_id,
+                menu_type
 
             ]]>
         </sql>
@@ -22,12 +24,20 @@
                 </foreach>
         </select>
 
+        <select id="selectRoleMenuByOperationBtnId" resultType="int" >
+                SELECT DISTINCT operation_id FROM authority_management.govern_role_menu where role_id in
+                <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+                        #{item}
+                </foreach>
+                and operation_id is not null
+        </select>
+
         <select id="selectRoleMenuByRoleId" resultType="int">
                 SELECT menu_id FROM authority_management.govern_role_menu WHERE role_id = #{roleId}
         </select>
 
         <insert id="insertRoleMenu" parameterType="roleMenu">
-                INSERT INTO authority_management.govern_role_menu(role_id,menu_id) VALUES(#{roleMenu.roleId},#{roleMenu.menuId})
+                INSERT INTO authority_management.govern_role_menu(role_id,menu_id, menu_type) VALUES(#{roleMenu.roleId},#{roleMenu.menuId},#{roleMenu.operationId}, #{roleMenu.menuType})
         </insert>
 
 
