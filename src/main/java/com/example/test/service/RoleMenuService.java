@@ -2,6 +2,7 @@ package com.example.test.service;
 
 
 
+import com.example.test.entity.dto.RoleMenuCreateDTO;
 import com.example.test.entity.vo.RoleMenuVo;
 import com.example.test.utils.ResultJson;
 import io.swagger.models.auth.In;
@@ -14,8 +15,8 @@ public interface RoleMenuService {
 
         boolean deleteRoleMenuByMenuId(long menuId);
 
-        List<Integer> selectRoleMenuByOperationBtnId(List<Integer> list);
-        ResultJson<RoleMenuVo> insertOrUpdateRoleMenu(long roleId, List<String> menuNameList);
+        List<Integer> selectRoleMenuByMenuBtnId(List<Integer> list);
+        ResultJson<RoleMenuVo> insertOrUpdateRoleMenu(RoleMenuCreateDTO createDTO);
 
 }
 

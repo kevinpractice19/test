@@ -13,7 +13,7 @@ public class RoleMenu {
         private long id;
 
         private long roleId;
-        private long operationId;
+        private long menuBtnId;
         private long menuId;
         private int menuType;
 

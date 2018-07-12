@@ -44,10 +44,10 @@
         <!--</select>-->
 
 
-        <!--<insert id="insertRole" parameterType="role" useGeneratedKeys="true" keyProperty="role.id" keyColumn="GENERATED_KEY">-->
-                <!--INSERT into noa_govern_center.govern_role(role_name,remark,status)-->
-                <!--VALUES (#{role.roleName},#{role.remark},1)-->
-        <!--</insert>-->
+        <insert id="insertRole" parameterType="role" useGeneratedKeys="true" keyProperty="role.id" keyColumn="GENERATED_KEY">
+                INSERT into authority_management.govern_role(role_name,remark,status)
+                VALUES (#{role.roleName},#{role.remark},1)
+        </insert>
 
 
         <!--<update id="deleteRoleById">-->

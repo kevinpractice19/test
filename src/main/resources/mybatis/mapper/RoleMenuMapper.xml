@@ -2,51 +2,53 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.test.mapper.RoleMenuMapper">
 
-        <!-- 动态sql -->
-        <sql id="columnResult">
+    <!-- 动态sql -->
+    <sql id="columnResult">
             <![CDATA[
+
 
 
                 id,
                 role_id,
                 menu_id,
-                operation_id,
+                menu_btn_id,
                 menu_type
 
-            ]]>
+
+        ]]>
         </sql>
 
 
-        <select id="selectRoleMenuIdById" resultType="int" >
-                SELECT DISTINCT menu_id FROM authority_management.govern_role_menu where role_id in
-                <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
-                    #{item}
-                </foreach>
-        </select>
+    <select id="selectRoleMenuIdById" resultType="int">
+        SELECT DISTINCT menu_id FROM authority_management.govern_role_menu where role_id in
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
 
-        <select id="selectRoleMenuByOperationBtnId" resultType="int" >
-                SELECT DISTINCT operation_id FROM authority_management.govern_role_menu where role_id in
-                <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
-                        #{item}
-                </foreach>
-                and operation_id is not null
-        </select>
+    <select id="selectRoleMenuByMenuBtnId" resultType="int">
+        SELECT DISTINCT menu_btn_id FROM authority_management.govern_role_menu where role_id in
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+        and menu_btn_id is not null
+    </select>
 
-        <select id="selectRoleMenuByRoleId" resultType="int">
+    <select id="selectRoleMenuByRoleId" resultType="int">
                 SELECT menu_id FROM authority_management.govern_role_menu WHERE role_id = #{roleId}
         </select>
 
-        <insert id="insertRoleMenu" parameterType="roleMenu">
-                INSERT INTO authority_management.govern_role_menu(role_id,menu_id, menu_type) VALUES(#{roleMenu.roleId},#{roleMenu.menuId},#{roleMenu.operationId}, #{roleMenu.menuType})
+    <insert id="insertRoleMenu" parameterType="roleMenu">
+                INSERT INTO authority_management.govern_role_menu(role_id,menu_id,menu_btn_id, menu_type) VALUES(#{roleMenu.roleId},#{roleMenu.menuId},#{roleMenu.menuBtnId}, #{roleMenu.menuType})
         </insert>
 
 
-        <delete id="deleteRoleMenuByMenuId">
+    <delete id="deleteRoleMenuByMenuId">
                 DELETE FROM authority_management.govern_role_menu WHERE menu_id=#{menuId}
         </delete>
 
 
-        <delete id="deleteRoleMenuByMenuIdRoleId">
+    <delete id="deleteRoleMenuByMenuIdRoleId">
                 DELETE FROM authority_management.govern_role_menu WHERE role_id=#{roleId} and menu_id=#{menuId}
         </delete>
 

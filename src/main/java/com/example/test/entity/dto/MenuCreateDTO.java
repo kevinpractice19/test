@@ -1,9 +1,12 @@
 package com.example.test.entity.dto;
 
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,6 +19,5 @@ public class MenuCreateDTO {
 
     private long parentId;
 
-//    @ApiModelProperty(name = "envName", value = "环境名称", required = false, dataType = "String")
-//    private String roleName;
+    private List<Long> roleId;
 }

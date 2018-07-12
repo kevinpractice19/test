@@ -1,6 +1,7 @@
 package com.example.test.service.Impl;
 
 
+import com.example.test.entity.dto.RoleMenuCreateDTO;
 import com.example.test.entity.po.RoleMenu;
 import com.example.test.entity.vo.RoleMenuVo;
 import com.example.test.mapper.MenuMapper;
@@ -9,6 +10,7 @@ import com.example.test.service.RoleMenuService;
 import com.example.test.utils.EnumsUtils;
 import com.example.test.utils.ResultJson;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -33,26 +35,27 @@ public class RoleMenuServiceImpl implements RoleMenuService {
     }
 
     @Override
-    public List<Integer> selectRoleMenuByOperationBtnId(List<Integer> list) {
-        return this.roleMenuMapper.selectRoleMenuByOperationBtnId(list);
+    public List<Integer> selectRoleMenuByMenuBtnId(List<Integer> list) {
+        return this.roleMenuMapper.selectRoleMenuByMenuBtnId(list);
     }
 
-    public ResultJson<RoleMenuVo> insertOrUpdateRoleMenu(long roleId, List<String> menuNameList) {
-        List<Integer> menuIdListNew = menuMapper.selectMenuByNameList(menuNameList);
+    @Transactional
+    public ResultJson<RoleMenuVo> insertOrUpdateRoleMenu(RoleMenuCreateDTO createDTO) {
+        List<Integer> menuIdListNew = menuMapper.selectMenuByNameList(createDTO.getMenuNameList());
         if (menuIdListNew.isEmpty()) {
             return new ResultJson<>(EnumsUtils.FIND_FAIL);
         }
-        List<Integer> menuIdListOld = roleMenuMapper.selectRoleMenuByRoleId(roleId);
+        List<Integer> menuIdListOld = roleMenuMapper.selectRoleMenuByRoleId(createDTO.getRoleId());
         if (menuIdListOld.isEmpty()) {
             return new ResultJson<>(EnumsUtils.FIND_FAIL);
         }
         for (long menuId : menuIdListOld) {
-            if (!menuIdListNew.contains((int) roleId))  //如果新传过来的角色不包含此用户以前的角色id则删除
-                roleMenuMapper.deleteRoleMenuByMenuIdRoleId(roleId, menuId);
+            if (!menuIdListNew.contains((int) createDTO.getRoleId()))  //如果新传过来的角色不包含此用户以前的角色id则删除
+                roleMenuMapper.deleteRoleMenuByMenuIdRoleId(createDTO.getRoleId(), menuId);
         }
         for (long menuId : menuIdListNew) {
             if (!menuIdListOld.contains((int) menuId)) {
-                roleMenuMapper.insertRoleMenu(new RoleMenu(roleId, menuId));
+                roleMenuMapper.insertRoleMenu(new RoleMenu(createDTO.getRoleId(), menuId));
             }
         }
         return new ResultJson<>(EnumsUtils.SUCCESS);

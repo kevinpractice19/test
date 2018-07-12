@@ -4,10 +4,12 @@ import com.example.test.entity.dto.MenuCreateDTO;
 import com.example.test.entity.dto.MenuModifyDTO;
 import com.example.test.entity.po.Menu;
 import com.example.test.entity.po.OperationBtn;
+import com.example.test.entity.po.Role;
 import com.example.test.entity.po.RoleMenu;
 import com.example.test.entity.vo.MenuVo;
 import com.example.test.mapper.MenuMapper;
 import com.example.test.mapper.OperationBtnMapper;
+import com.example.test.mapper.RoleMapper;
 import com.example.test.mapper.RoleMenuMapper;
 import com.example.test.service.MenuService;
 import com.example.test.service.RoleMenuService;
@@ -48,12 +50,18 @@ public class MenuServiceImpl implements MenuService {
     @Autowired
     private OperationBtnMapper operationBtnMapper;
 
+    @Autowired
+    private RoleMapper roleMapper;
+
     @Override
     public ResultJson<List<MenuVo>> listParentMenuByUserId(long userId) {
         List<Integer> roleIdList = this.userRoleService.getRoleIdListById(userId);
         List<Integer> menuIdList = this.roleMenuService.selectRoleMenuIdById(roleIdList);
-        List<Integer> operationIdList = this.roleMenuService.selectRoleMenuByOperationBtnId(roleIdList);  //根据roleId查询出该角色所拥有所有按钮权限
-        List<OperationBtn> operationBtnList = this.operationBtnMapper.selectOperationBtnByIdList(operationIdList); //根据按钮idList查询出按钮所有信息
+        List<Integer> operationIdList = this.roleMenuService.selectRoleMenuByMenuBtnId(roleIdList);  //根据roleId查询出该角色所拥有所有按钮权限
+        List<OperationBtn> operationBtnList = null;
+        if (!CollectionUtils.isEmpty(operationIdList)) {
+            operationBtnList = this.operationBtnMapper.selectOperationBtnByIdList(operationIdList); //根据按钮idList查询出按钮所有信息
+        }
         List<Menu> menuList = this.menuMapper.selectMenuByIdList(menuIdList); //查出所有顶级菜单
         List<MenuVo> result = new ArrayList<>();
         for (Menu menu : menuList) {
@@ -71,7 +79,7 @@ public class MenuServiceImpl implements MenuService {
                 for (MenuVo subMenu : menuVoList) {
                     List<OperationBtn> btnList = this.operationBtnMapper.selectOperationBtnByMenuId(subMenu.getMenuId());
                     for (OperationBtn operationBtn : btnList) {
-                        if (operationBtnList.contains(operationBtn)) {
+                        if (!CollectionUtils.isEmpty(operationBtnList) && operationBtnList.contains(operationBtn)) {
                             subMenu.getOperationBtnList().add(operationBtn);
                         }
                     }
@@ -126,7 +134,6 @@ public class MenuServiceImpl implements MenuService {
     @Override
     @Transactional
     public ResultJson<MenuVo> insertMenu(MenuCreateDTO createDTO) {
-        RoleMenu roleMenu = new RoleMenu();
         Menu menu = new Menu();
         BeanUtils.copyProperties(createDTO, menu);
         menu.setParentId(createDTO.getParentId());
@@ -146,11 +153,8 @@ public class MenuServiceImpl implements MenuService {
                 if (!this.menuMapper.insertMenu(menu)) {
                     throw new GovernCenterException(EnumsUtils.INSERT_FAIL);
                 }
-                roleMenu.setMenuId(menu.getId());
-                roleMenu.setRoleId(1);
-                if (!this.roleMenuMapper.insertRoleMenu(roleMenu)) {
-                    throw new GovernCenterException(EnumsUtils.INSERT_FAIL);
-                }
+                this.createRoleMenu(createDTO.getRoleId(), menu);
+
             } else {
                 List<Menu> menuList = this.menuMapper.selectMenuByParentId(createDTO.getParentId());
                 if (!CollectionUtils.isEmpty(menuList)) {
@@ -162,16 +166,30 @@ public class MenuServiceImpl implements MenuService {
                 if (!this.menuMapper.insertMenu(menu)) {
                     throw new GovernCenterException(EnumsUtils.INSERT_FAIL);
                 }
-                roleMenu.setMenuId(menu.getId());
-                roleMenu.setRoleId(1);
-                if (!this.roleMenuMapper.insertRoleMenu(roleMenu)) {
-                    throw new GovernCenterException(EnumsUtils.INSERT_FAIL);
-                }
+                this.createRoleMenu(createDTO.getRoleId(), menu);
             }
         } catch (GovernCenterException e) {
             throw new GovernCenterException(210, e.getMessage());
         }
         return new ResultJson<>(EnumsUtils.SUCCESS, this.selectMenuById(menu.getId()).getData());
+    }
+
+    private void createRoleMenu(List<Long> roleIdList, Menu menu) {
+        RoleMenu roleMenu = new RoleMenu();
+        if (!CollectionUtils.isEmpty(roleIdList)) {
+            for (int i = 0; i < roleIdList.size(); i++) {
+                roleMenu.setMenuId(menu.getId());
+                Role role = roleMapper.selectRoleById(roleIdList.get(i));
+                if (role == null) {
+                    throw new GovernCenterException(300, "该角色不存在");
+                }
+                roleMenu.setRoleId(role.getId());
+                roleMenu.setRoleId(roleIdList.get(i));
+                if (!this.roleMenuMapper.insertRoleMenu(roleMenu)) {
+                    throw new GovernCenterException(EnumsUtils.INSERT_FAIL);
+                }
+            }
+        }
     }
 
     @Override

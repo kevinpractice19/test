@@ -24,12 +24,12 @@ public class OperationBtnServiceImpl implements OperationBtnService {
     }
 
     @Override
-    public ResultJson<Boolean> insertOperationBtn(OperationBtnCreateDTO createDTO) {
+    public ResultJson<OperationBtnVo> insertOperationBtn(OperationBtnCreateDTO createDTO) {
         OperationBtn  operationBtn = new OperationBtn();
         BeanUtils.copyProperties(createDTO, operationBtn);
         if (this.operationBtnMapper.insertOperationBtn(operationBtn)){
-            return new ResultJson<>(EnumsUtils.SUCCESS, true);
+            return new ResultJson<>(EnumsUtils.SUCCESS, new OperationBtnVo(this.operationBtnMapper.selectOperationBtnById(operationBtn.getId())));
         }
-        return null;
+        return new ResultJson<>(EnumsUtils.INSERT_FAIL);
     }
 }

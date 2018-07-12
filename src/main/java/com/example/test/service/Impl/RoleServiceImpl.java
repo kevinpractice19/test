@@ -1,6 +1,8 @@
 package com.example.test.service.Impl;
 
 
+import com.example.test.entity.dto.RoleCreateDTO;
+import com.example.test.entity.dto.RolePageDTO;
 import com.example.test.entity.po.Menu;
 import com.example.test.entity.po.Role;
 import com.example.test.entity.po.RoleMenu;
@@ -15,10 +17,13 @@ import com.example.test.utils.PageInfo;
 import com.example.test.utils.ResultJson;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+import sun.security.krb5.internal.PAData;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -38,19 +43,19 @@ public class RoleServiceImpl implements RoleService {
 
 
     @Override
-    public ResultJson<PageInfo<RoleVo>> selectRole(int pageNum, int pageSize) {
-        if (pageNum < 1) {
-            pageNum = Constant.PAGE_NUM;
+    public ResultJson<PageInfo<RoleVo>> selectRole(RolePageDTO pageDTO) {
+        if (pageDTO.getPageNum() < 1) {
+            pageDTO.setPageNum(Constant.PAGE_NUM);
         }
-        if (pageSize < 1) {
-            pageSize = Constant.PAGE_SIZE;
+        if (pageDTO.getPageSize() < 1) {
+            pageDTO.setPageSize(Constant.PAGE_SIZE);
         }
         PageInfo<RoleVo> pageInfo = new PageInfo<>();
         List<RoleVo> voList = new ArrayList<>();
-        Page<RoleVo> page = PageHelper.startPage(pageNum, pageSize);
+        Page<RoleVo> page = PageHelper.startPage(pageDTO.getPageNum(), pageDTO.getPageSize());
         List<Role> roleList = this.roleMapper.selectRole();
         roleList.forEach(role -> voList.add(new RoleVo(role)));
-        pageInfo.setPageInfo(pageNum, pageSize, (int) page.getTotal(), voList);
+        pageInfo.setPageInfo(pageDTO.getPageNum(), pageDTO.getPageSize(), (int) page.getTotal(), voList);
         return new ResultJson<>(EnumsUtils.SUCCESS, pageInfo);
     }
 
@@ -62,23 +67,25 @@ public class RoleServiceImpl implements RoleService {
 
 
     @Override
-    public ResultJson<RoleVo> insertRole(RoleVo roleVo, String menuName) {
+    @Transactional
+    public ResultJson<RoleVo> insertRole(RoleCreateDTO createDTO) {
         RoleMenu roleMenu = new RoleMenu();
-        Role role1 = new Role(roleVo);
+        Role role1 = new Role();
+        role1.setRemark(createDTO.getRemark());
+        role1.setRoleName(createDTO.getRoleName());
         if (!this.roleMapper.insertRole(role1)) {
             return new ResultJson<>(EnumsUtils.INSERT_FAIL);
         }
-        if (menuName != null) {
-            String[] menuNameStr = menuName.split("&");
-            for (int i = 0; i < menuNameStr.length; i++) {
-                Menu menu1 = menuMapper.selectMenuByMenuName(menuNameStr[i]);
-                roleMenu.setRoleId(role1.getId());
-                roleMenu.setMenuId(menu1.getId());
-                if (!this.roleMenuMapper.insertRoleMenu(roleMenu)) {
-                    new ResultJson<>(EnumsUtils.INSERT_FAIL);
-                }
-            }
-        }
+//        if (!CollectionUtils.isEmpty(createDTO.getMenuNameList())) {
+//            for (int i = 0; i < createDTO.getMenuNameList().size(); i++) {
+//                Menu menu1 = menuMapper.selectMenuByMenuName(createDTO.getMenuNameList().get(i));
+//                roleMenu.setRoleId(role1.getId());
+//                roleMenu.setMenuId(menu1.getId());
+//                if (!this.roleMenuMapper.insertRoleMenu(roleMenu)) {
+//                    new ResultJson<>(EnumsUtils.INSERT_FAIL);
+//                }
+//            }
+//        }
         return new ResultJson<>(EnumsUtils.SUCCESS, this.selectRoleById(role1.getId()).getData());
     }
 

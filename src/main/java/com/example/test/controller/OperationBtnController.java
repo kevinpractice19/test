@@ -15,7 +15,7 @@ public class OperationBtnController {
     private OperationBtnService operationBtnService;
 
     @RequestMapping(value = "/createOperationBtn.do", method = RequestMethod.POST)
-    public ResultJson<Boolean> createOperationBtn(@RequestBody OperationBtnCreateDTO createDTO) {
+    public ResultJson<OperationBtnVo> createOperationBtn(@RequestBody OperationBtnCreateDTO createDTO) {
         return this.operationBtnService.insertOperationBtn(createDTO);
     }
 
