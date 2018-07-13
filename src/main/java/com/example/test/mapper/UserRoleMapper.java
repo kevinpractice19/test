@@ -14,7 +14,7 @@ public interface UserRoleMapper {
          *
          * @return
          */
-        List<Integer> selectRoleIdById(@Param("userId") long userId);
+        List<Long> selectRoleIdById(@Param("userId") long userId);
 
         /**
          * 插入用户角色关系

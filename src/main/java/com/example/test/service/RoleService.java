@@ -21,5 +21,5 @@ public interface RoleService {
 
         ResultJson updateRoleById(RoleVo roleVo);
 
-        List<Integer> selectIdByRoleName(List<String> roleName);
+        List<Long> selectIdByRoleName(List<String> roleName);
 }

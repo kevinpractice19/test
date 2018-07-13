@@ -17,12 +17,12 @@
             ]]>
         </sql>
 
-        <!--<select id="selectRoleIdList" resultType="int">-->
-                <!--SELECT <include refid="columnResult"/> FROM noa_govern_center.govern_role where id IN-->
-                <!--<foreach collection="list" item="id" index="index" open="(" close=")" separator=",">-->
-                    <!--#{id}-->
-                <!--</foreach>-->
-        <!--</select>-->
+        <select id="selectRoleIdList" resultType="int">
+                SELECT <include refid="columnResult"/> FROM noa_govern_center.govern_role where id IN
+                <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+                    #{id}
+                </foreach>
+        </select>
 
 
         <select id="selectRoleById" resultType="role" parameterType="java.lang.Long">
@@ -31,17 +31,12 @@
                 from authority_management.govern_role WHERE id=#{id} and status='1'
         </select>
 
-        <!--<select id="selectRoleByRoleName" resultType="role">-->
-                <!--SELECT-->
-                <!--<include refid="columnResult"/>-->
-                <!--from noa_govern_center.govern_role WHERE role_name=#{roleName} and status='1'-->
-        <!--</select>-->
 
-        <!--<select id="selectRole" resultType="role">-->
-                <!--SELECT-->
-                <!--<include refid="columnResult"/>-->
-                <!--from noa_govern_center.govern_role WHERE status='1'-->
-        <!--</select>-->
+        <select id="selectRole" resultType="role">
+                SELECT
+                <include refid="columnResult"/>
+                from noa_govern_center.govern_role WHERE status='1'
+        </select>
 
 
         <insert id="insertRole" parameterType="role" useGeneratedKeys="true" keyProperty="role.id" keyColumn="GENERATED_KEY">
@@ -50,33 +45,33 @@
         </insert>
 
 
-        <!--<update id="deleteRoleById">-->
-                <!--UPDATE noa_govern_center.govern_role SET status='2' WHERE id=#{roleId}-->
-        <!--</update>-->
+        <update id="deleteRoleById">
+                UPDATE noa_govern_center.govern_role SET status='2' WHERE id=#{roleId}
+        </update>
 
-        <!--<update id="updateRoleById">-->
-                <!--UPDATE noa_govern_center.govern_role-->
-                <!--<set>-->
-                    <!--<if test="role.roleName!=null and role.roleName!=''">-->
-                        <!--role_name=#{role.roleName},-->
-                    <!--</if>-->
-                    <!--<if test="role.remark!=null and role.remark!=''">-->
-                        <!--remark=#{role.remark},-->
-                    <!--</if>-->
-                    <!--<if test="role.status!=null and role.status!=0">-->
-                        <!--status=#{role.status},-->
-                    <!--</if>-->
-                    <!--<if test="role.updateTime != null">-->
-                        <!--update_time=#{role.updateTime},-->
-                    <!--</if>-->
-                <!--</set>-->
-                <!--WHERE id=#{role.id}-->
-        <!--</update>-->
+        <update id="updateRoleById">
+                UPDATE noa_govern_center.govern_role
+                <set>
+                    <if test="role.roleName!=null and role.roleName!=''">
+                        role_name=#{role.roleName},
+                    </if>
+                    <if test="role.remark!=null and role.remark!=''">
+                        remark=#{role.remark},
+                    </if>
+                    <if test="role.status!=null and role.status!=0">
+                        status=#{role.status},
+                    </if>
+                    <if test="role.updateTime != null">
+                        update_time=#{role.updateTime},
+                    </if>
+                </set>
+                WHERE id=#{role.id}
+        </update>
 
-        <!--<select id="selectIdByRoleName" resultType="int">-->
-                <!--SELECT  id FROM noa_govern_center.govern_role where role_name in-->
-                <!--<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">-->
-                    <!--#{item}-->
-                <!--</foreach>-->
-        <!--</select>-->
+        <select id="selectIdByRoleName" resultType="int">
+                SELECT  id FROM noa_govern_center.govern_role where role_name in
+                <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+        </select>
 </mapper>

@@ -36,7 +36,7 @@
         FROM authority_management.govern_menu where parent_id = #{parentId} order by menu_sort
     </select>
 
-    <select id="selectMenuByNameList" resultType="int">
+    <select id="selectMenuByNameList" resultType="java.lang.Long">
         SELECT id FROM authority_management.govern_menu where menu_name in
         <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
             #{item}

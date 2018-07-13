@@ -69,7 +69,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     @Transactional
     public ResultJson<RoleVo> insertRole(RoleCreateDTO createDTO) {
-        RoleMenu roleMenu = new RoleMenu();
+//        RoleMenu roleMenu = new RoleMenu();
         Role role1 = new Role();
         role1.setRemark(createDTO.getRemark());
         role1.setRoleName(createDTO.getRoleName());
@@ -114,7 +114,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<Integer> selectIdByRoleName(List<String> roleName) {
+    public List<Long> selectIdByRoleName(List<String> roleName) {
         return roleMapper.selectIdByRoleName(roleName);
     }
 }

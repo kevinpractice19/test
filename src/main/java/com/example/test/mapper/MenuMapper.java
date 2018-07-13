@@ -13,7 +13,7 @@ public interface MenuMapper {
          * @param list
          * @return
          */
-        List<Menu> selectMenuByIdList(@Param("list") List<Integer> list);
+        List<Menu> selectMenuByIdList(@Param("list") List<Long> list);
 
         /**
          * 查询所有菜单
@@ -76,7 +76,7 @@ public interface MenuMapper {
          * @param menuNameList
          * @return
          */
-        List<Integer> selectMenuByNameList(List<String> menuNameList);
+        List<Long> selectMenuByNameList(List<String> menuNameList);
 
         /**
          * 根据菜单id查询菜单详情

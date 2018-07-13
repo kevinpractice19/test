@@ -19,14 +19,14 @@
         </sql>
 
 
-    <select id="selectRoleMenuIdById" resultType="int">
+    <select id="selectRoleMenuIdById" resultType="java.lang.Long">
         SELECT DISTINCT menu_id FROM authority_management.govern_role_menu where role_id in
         <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
             #{item}
         </foreach>
     </select>
 
-    <select id="selectRoleMenuByMenuBtnId" resultType="int">
+    <select id="selectRoleMenuByMenuBtnId" resultType="java.lang.Long">
         SELECT DISTINCT menu_btn_id FROM authority_management.govern_role_menu where role_id in
         <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
             #{item}
@@ -34,7 +34,7 @@
         and menu_btn_id is not null
     </select>
 
-    <select id="selectRoleMenuByRoleId" resultType="int">
+    <select id="selectRoleMenuByRoleId" resultType="java.lang.Long">
                 SELECT menu_id FROM authority_management.govern_role_menu WHERE role_id = #{roleId}
         </select>
 
@@ -51,6 +51,5 @@
     <delete id="deleteRoleMenuByMenuIdRoleId">
                 DELETE FROM authority_management.govern_role_menu WHERE role_id=#{roleId} and menu_id=#{menuId}
         </delete>
-
 
 </mapper>

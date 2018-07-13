@@ -15,7 +15,7 @@ public interface RoleMenuMapper {
          * @param list
          * @return
          */
-        List<Integer> selectRoleMenuIdById(@Param("list") List<Integer> list);
+        List<Long> selectRoleMenuIdById(@Param("list") List<Long> list);
 
         /**
          * 创建菜单角色关联
@@ -39,7 +39,7 @@ public interface RoleMenuMapper {
          * @param roleId
          * @return
          */
-        List<Integer> selectRoleMenuByRoleId(@Param("roleId") long roleId);
+        List<Long> selectRoleMenuByRoleId(@Param("roleId") long roleId);
 
         /**
          * 删除角色菜单关联
@@ -50,7 +50,6 @@ public interface RoleMenuMapper {
          */
         boolean deleteRoleMenuByMenuIdRoleId(@Param("roleId") long roleId, @Param("menuId") long menuId);
 
-        List<Integer> selectRoleMenuByMenuBtnId(@Param("list") List<Integer> list);
-
+        List<Long> selectRoleMenuByMenuBtnId(@Param("list") List<Long> list);
 
 }

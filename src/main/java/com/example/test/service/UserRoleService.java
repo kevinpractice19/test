@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserRoleService {
 
-        List<Integer> getRoleIdListById(long userId);
+        List<Long> getRoleIdListById(long userId);
 
         ResultJson<UserRoleVo> insertOrUpdateUserRole(long userId, List<String> roleNameList);
 }

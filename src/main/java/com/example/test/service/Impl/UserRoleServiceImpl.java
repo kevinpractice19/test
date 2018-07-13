@@ -23,7 +23,7 @@ public class UserRoleServiceImpl implements UserRoleService {
         private RoleMapper roleMapper;
 
         @Override
-        public List<Integer> getRoleIdListById(long userId) {
+        public List<Long> getRoleIdListById(long userId) {
                 return this.userRoleMapper.selectRoleIdById(userId);
         }
 
@@ -35,11 +35,11 @@ public class UserRoleServiceImpl implements UserRoleService {
          */
         @Override
         public ResultJson<UserRoleVo> insertOrUpdateUserRole(long userId, List<String> roleNameList) {
-                List<Integer> roleIdNew = roleMapper.selectIdByRoleName(roleNameList);
+                List<Long> roleIdNew = roleMapper.selectIdByRoleName(roleNameList);
                 if (roleIdNew.isEmpty()) {
                     return new ResultJson<>(EnumsUtils.FIND_FAIL);
                 }
-                List<Integer> roleIdOld = userRoleMapper.selectRoleIdById(userId);
+                List<Long> roleIdOld = userRoleMapper.selectRoleIdById(userId);
 
                 for (long roleId : roleIdOld) {
                     if (!roleIdNew.contains((int) roleId))

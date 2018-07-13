@@ -15,7 +15,7 @@
         </sql>
 
         <!--根据userid查询roleid-->
-        <select id="selectRoleIdById" resultType="int" >
+        <select id="selectRoleIdById" resultType="java.lang.Long" >
                 SELECT
                 role_id
                 FROM authority_management.govern_user_role where user_id = #{userId}

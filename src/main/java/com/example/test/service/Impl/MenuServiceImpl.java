@@ -55,9 +55,9 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public ResultJson<List<MenuVo>> listParentMenuByUserId(long userId) {
-        List<Integer> roleIdList = this.userRoleService.getRoleIdListById(userId);
-        List<Integer> menuIdList = this.roleMenuService.selectRoleMenuIdById(roleIdList);
-        List<Integer> operationIdList = this.roleMenuService.selectRoleMenuByMenuBtnId(roleIdList);  //根据roleId查询出该角色所拥有所有按钮权限
+        List<Long> roleIdList = this.userRoleService.getRoleIdListById(userId);
+        List<Long> menuIdList = this.roleMenuService.selectRoleMenuIdById(roleIdList);
+        List<Long> operationIdList = this.roleMenuService.selectRoleMenuByMenuBtnId(roleIdList);  //根据roleId查询出该角色所拥有所有按钮权限
         List<OperationBtn> operationBtnList = null;
         if (!CollectionUtils.isEmpty(operationIdList)) {
             operationBtnList = this.operationBtnMapper.selectOperationBtnByIdList(operationIdList); //根据按钮idList查询出按钮所有信息
@@ -202,7 +202,7 @@ public class MenuServiceImpl implements MenuService {
         if (!this.menuMapper.deleteMenuById(menuId)) {
             return new ResultJson<>(EnumsUtils.DELETE_FAIL);
         }
-        if (!this.roleMenuService.deleteRoleMenuByMenuId(menuId)) {
+        if (!this.roleMenuMapper.deleteRoleMenuByMenuId(menuId)) {
             return new ResultJson<>(EnumsUtils.DELETE_FAIL);
         }
         return new ResultJson<>(EnumsUtils.SUCCESS);

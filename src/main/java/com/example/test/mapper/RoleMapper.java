@@ -58,20 +58,12 @@ public interface RoleMapper {
         List<Role> selectRoleIdList(@Param("list") List<Integer> list);
 
         /**
-         * 根据角色名查询角色信息
-         *
-         * @param roleName
-         * @return
-         */
-        Role selectRoleByRoleName(@Param("roleName") String roleName);
-
-        /**
          * 根据角色名查询角色id
          *
          * @param list
          * @return
          */
-        List<Integer> selectIdByRoleName(@Param("list") List<String> list);
+        List<Long> selectIdByRoleName(@Param("list") List<String> list);
 //
 
 }
