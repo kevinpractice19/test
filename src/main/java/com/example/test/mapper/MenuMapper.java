@@ -69,7 +69,7 @@ public interface MenuMapper {
          * @param id
          * @return
          */
-        boolean deleteMenuById(long id);
+        boolean updateMenuStatusById(@Param("id") long id, @Param("status") int status);
 
         /**
          * 根据菜单名称查询菜单id

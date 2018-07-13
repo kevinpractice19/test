@@ -6,13 +6,12 @@
     <sql id="columnResult">
             <![CDATA[
 
-
-
                 id,
                 role_id,
                 menu_id,
                 menu_btn_id,
-                menu_type
+                menu_type,
+                status
 
 
         ]]>
@@ -24,6 +23,7 @@
         <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
             #{item}
         </foreach>
+        AND status = '1'
     </select>
 
     <select id="selectRoleMenuByMenuBtnId" resultType="java.lang.Long">
@@ -31,11 +31,11 @@
         <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
             #{item}
         </foreach>
-        and menu_btn_id is not null
+        AND status = '1' and menu_btn_id is not null
     </select>
 
     <select id="selectRoleMenuByRoleId" resultType="java.lang.Long">
-                SELECT menu_id FROM authority_management.govern_role_menu WHERE role_id = #{roleId}
+                SELECT menu_id FROM authority_management.govern_role_menu WHERE role_id = #{roleId} AND status = '1'
         </select>
 
     <insert id="insertRoleMenu" parameterType="roleMenu">
@@ -43,9 +43,9 @@
         </insert>
 
 
-    <delete id="deleteRoleMenuByMenuId">
-                DELETE FROM authority_management.govern_role_menu WHERE menu_id=#{menuId}
-        </delete>
+    <update id="updateRoleMenuStatusByMenuId">
+                UPDATE authority_management.govern_role_menu SET status=#{status} WHERE menu_id=#{menuId}
+        </update>
 
 
     <delete id="deleteRoleMenuByMenuIdRoleId">

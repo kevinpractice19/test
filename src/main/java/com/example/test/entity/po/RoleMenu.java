@@ -10,17 +10,17 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RoleMenu {
-        private long id;
+    private long id;
+    private long roleId;
+    private long menuBtnId;
+    private long menuId;
+    private int menuType;
+    private int status;
 
-        private long roleId;
-        private long menuBtnId;
-        private long menuId;
-        private int menuType;
 
-
-        public RoleMenu(Long roleId , Long menuId){
-                this.roleId = roleId;
-                this.menuId = menuId;
-        }
+    public RoleMenu(Long roleId, Long menuId) {
+        this.roleId = roleId;
+        this.menuId = menuId;
+    }
 
 }

@@ -34,6 +34,8 @@ public class MenuVo implements Serializable {
 
         private String parentName;
 
+        private int status;
+
         private String createTime;
 
         private String updateTime;
@@ -48,6 +50,7 @@ public class MenuVo implements Serializable {
                 this.menuName = menu.getMenuName();
                 this.menuPath = menu.getMenuPath();
                 this.menuSort = menu.getMenuSort();
+                this.status = menu.getStatus();
                 this.createTime = new DateTime(menu.getCreateTime()).toString("yyyy-MM-dd HH:mm:ss") ;
                 this.updateTime = new DateTime(menu.getUpdateTime()).toString("yyyy-MM-dd HH:mm:ss") ;
         }

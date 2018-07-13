@@ -1,6 +1,5 @@
 package com.example.test.entity.po;
 
-import com.example.test.entity.vo.MenuVo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +23,8 @@ public class Menu {
         private String menuPath;
 
         private int menuSort;
+
+        private int status;
 
         private Date createTime;
 

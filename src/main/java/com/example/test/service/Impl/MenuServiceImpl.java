@@ -193,16 +193,16 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    @CacheEvict(value = "menuVo", key = "#menuId+'menuVo'")
-    public ResultJson<MenuVo> deleteMenuById(long menuId) {
+    @Transactional
+    public ResultJson<MenuVo> deleteMenuById(long menuId, int status) {
         List<Menu> mList = this.menuMapper.selectMenuByParentId(menuId);
         if (!mList.isEmpty()) {
             return new ResultJson<>(EnumsUtils.DELETE_SUBMENU);
         }
-        if (!this.menuMapper.deleteMenuById(menuId)) {
+        if (!this.menuMapper.updateMenuStatusById(menuId, status)) {
             return new ResultJson<>(EnumsUtils.DELETE_FAIL);
         }
-        if (!this.roleMenuMapper.deleteRoleMenuByMenuId(menuId)) {
+        if (!this.roleMenuMapper.updateRoleMenuStatusByMenuId(menuId,status)) {
             return new ResultJson<>(EnumsUtils.DELETE_FAIL);
         }
         return new ResultJson<>(EnumsUtils.SUCCESS);

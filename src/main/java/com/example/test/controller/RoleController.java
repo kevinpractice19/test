@@ -1,6 +1,7 @@
 package com.example.test.controller;
 
 import com.example.test.entity.dto.RoleCreateDTO;
+import com.example.test.entity.dto.RoleModifyDTO;
 import com.example.test.entity.dto.RolePageDTO;
 import com.example.test.entity.vo.RoleVo;
 import com.example.test.service.RoleService;
@@ -43,23 +44,17 @@ public class RoleController {
         return this.roleService.insertRole(createDTO);
     }
 
-
-    @ApiOperation(value = "根据角色id删除角色")
-    @RequestMapping(value = "/removeRoleById.do/{roleId}", method = RequestMethod.DELETE, produces = Constant.APPLICATION_JSON_UTF8_VALUE)
-    public ResultJson<Boolean> removeRoleById(@PathVariable("roleId") long roleId) {
-        return this.roleService.deleteRoleById(roleId);
-    }
-
-
-//    @ApiOperation(value = "根据角色id更新角色")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "roleId", value = "角色id", required = true, paramType = "query", dataType = "long"),
-//            @ApiImplicitParam(name = "roleName", value = "角色名", required = true, paramType = "query", dataType = "String"),
-//            @ApiImplicitParam(name = "remark", value = "角色备注", required = true, paramType = "query", dataType = "String"),
-//    })
-//    @RequestMapping(value = "/modifyRoleById.do", method = RequestMethod.POST, produces = Constant.APPLICATION_JSON_UTF8_VALUE)
-//    public ResultJson<RoleVo> modifyRoleById(HttpServletRequest request) {
-//        RoleVo roleVo = new RoleVo(request);
-//        return this.roleService.updateRoleById(roleVo);
+//
+//    @ApiOperation(value = "根据角色id删除角色")
+//    @RequestMapping(value = "/removeRoleById.do/{roleId}", method = RequestMethod.DELETE, produces = Constant.APPLICATION_JSON_UTF8_VALUE)
+//    public ResultJson<Boolean> removeRoleById(@PathVariable("roleId") long roleId) {
+//        return this.roleService.deleteRoleById(roleId);
 //    }
+
+
+    @ApiOperation(value = "根据角色id更新角色")
+    @RequestMapping(value = "/modifyRoleById.do", method = RequestMethod.POST, produces = Constant.APPLICATION_JSON_UTF8_VALUE)
+    public ResultJson<RoleVo> modifyRoleById(@RequestBody RoleModifyDTO modifyDTO) {
+        return this.roleService.updateRoleById(modifyDTO);
+    }
 }

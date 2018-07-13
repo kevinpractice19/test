@@ -5,16 +5,14 @@
     <sql id="columnResult">
             <![CDATA[
 
-
-
                 id,
                 parent_id,
                 menu_name,
                 menu_path,
                 menu_sort,
+                status,
                 create_time,
                 update_time
-
 
         ]]>
         </sql>
@@ -26,14 +24,13 @@
         <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
             #{id}
         </foreach>
-        and parent_id = 0 order by menu_sort
+        and parent_id = 0 AND status = '1' order by menu_sort
     </select>
-
 
     <select id="selectMenuByParentId" resultType="menu">
         SELECT
         <include refid="columnResult"/>
-        FROM authority_management.govern_menu where parent_id = #{parentId} order by menu_sort
+        FROM authority_management.govern_menu where parent_id = #{parentId} AND status = '1' order by menu_sort
     </select>
 
     <select id="selectMenuByNameList" resultType="java.lang.Long">
@@ -41,13 +38,14 @@
         <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
             #{item}
         </foreach>
+        AND status = '1'
     </select>
 
 
     <select id="selectMenuById" resultType="menu">
         SELECT
         <include refid="columnResult"/>
-        FROM authority_management.govern_menu WHERE id=#{menuId}
+        FROM authority_management.govern_menu WHERE id=#{menuId} AND status = '1'
     </select>
 
 
@@ -82,29 +80,29 @@
         where id = #{menu.id}
     </update>
 
-    <update id="deleteMenuById">
-                delete from authority_management.govern_menu where id = #{id}
+    <update id="updateMenuStatusById">
+               UPDATE authority_management.govern_menu SET status = #{status} where id = #{id}
         </update>
 
     <select id="selectParentMenu" resultType="menu">
         SELECT
         <include refid="columnResult"/>
-        FROM authority_management.govern_menu where parent_id = '0' order by menu_sort
+        FROM authority_management.govern_menu where parent_id = '0' AND status = '1' order by menu_sort
     </select>
 
     <select id="selectMenuList" resultType="menu">
         SELECT
         <include refid="columnResult"/>
-        FROM authority_management.govern_menu order by menu_sort
+        FROM authority_management.govern_menu WHERE AND status = '1' order by menu_sort
     </select>
 
     <select id="selectParentName" resultType="String">
                 SELECT menu_name
-                FROM authority_management.govern_menu where id = #{parentId} order by menu_sort
+                FROM authority_management.govern_menu where id = #{parentId} AND status = '1' order by menu_sort
         </select>
 
     <select id="selectMenuByMenuName" resultType="menu">
-                SELECT id FROM authority_management.govern_menu WHERE menu_name=#{menuName}
+                SELECT id FROM authority_management.govern_menu WHERE menu_name=#{menuName} AND status = '1'
         </select>
 
 
@@ -114,7 +112,7 @@
         <include refid="columnResult"/>
         FROM authority_management.govern_menu WHERE parent_id =ANY(SELECT
         parent_id
-        FROM authority_management.govern_menu WHERE parent_id = #{parentId}) AND parent_id != 0 order by menu_sort
+        FROM authority_management.govern_menu WHERE parent_id = #{parentId} AND status = '1') AND parent_id != 0 AND status = '1' order by menu_sort
 
     </select>
 

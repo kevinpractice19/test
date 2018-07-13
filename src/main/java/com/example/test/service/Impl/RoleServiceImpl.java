@@ -2,6 +2,7 @@ package com.example.test.service.Impl;
 
 
 import com.example.test.entity.dto.RoleCreateDTO;
+import com.example.test.entity.dto.RoleModifyDTO;
 import com.example.test.entity.dto.RolePageDTO;
 import com.example.test.entity.po.Menu;
 import com.example.test.entity.po.Role;
@@ -89,32 +90,30 @@ public class RoleServiceImpl implements RoleService {
         return new ResultJson<>(EnumsUtils.SUCCESS, this.selectRoleById(role1.getId()).getData());
     }
 
-    @Override
-    @CacheEvict(value = "roleVo", key = "#roleId+'roleVo'")
-    public ResultJson<Boolean> deleteRoleById(long roleId) {
-        ResultJson resultJson = this.selectRoleById(roleId);
-        if (resultJson.getData() == null) {
-            return new ResultJson<>(EnumsUtils.FIND_FAIL);
-        }
-        if (this.roleMapper.deleteRoleById(roleId)) {
-            return new ResultJson<>(EnumsUtils.SUCCESS, true);
-        }
-        return new ResultJson<>(EnumsUtils.DELETE_FAIL, false);
-    }
+//    @Override
+//    @CacheEvict(value = "roleVo", key = "#roleId+'roleVo'")
+//    public ResultJson<Boolean> deleteRoleById(long roleId) {
+//        ResultJson resultJson = this.selectRoleById(roleId);
+//        if (resultJson.getData() == null) {
+//            return new ResultJson<>(EnumsUtils.FIND_FAIL);
+//        }
+//        if (this.roleMapper.deleteRoleById(roleId)) {
+//            return new ResultJson<>(EnumsUtils.SUCCESS, true);
+//        }
+//        return new ResultJson<>(EnumsUtils.DELETE_FAIL, false);
+//    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "roleVo", key = "#roleVo.roleId+'roleVo'")
-    public ResultJson<RoleVo> updateRoleById(RoleVo roleVo) {
-        Role role = new Role(roleVo);
+    @CachePut(value = "roleVo", key = "#modifyDTO.roleId+'roleVo'")
+    public ResultJson<RoleVo> updateRoleById(RoleModifyDTO modifyDTO) {
+        Role role = new Role();
+        role.setRoleName(modifyDTO.getRoleName());
+        role.setId(modifyDTO.getRoleId());
+        role.setRemark(modifyDTO.getRemark());
         if (this.roleMapper.updateRoleById(role)) {
             return new ResultJson<>(EnumsUtils.SUCCESS, new RoleVo(this.roleMapper.selectRoleById(role.getId())));
         }
         return new ResultJson<>(EnumsUtils.UPDATE_FAIL);
-    }
-
-    @Override
-    public List<Long> selectIdByRoleName(List<String> roleName) {
-        return roleMapper.selectIdByRoleName(roleName);
     }
 }

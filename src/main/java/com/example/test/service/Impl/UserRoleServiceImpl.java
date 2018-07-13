@@ -27,34 +27,34 @@ public class UserRoleServiceImpl implements UserRoleService {
                 return this.userRoleMapper.selectRoleIdById(userId);
         }
 
-        /**
-         * 添加用户权限或修改用户权限
-         * @param userId  用户id
-         * @param roleNameList  角色名称
-         * @return
-         */
-        @Override
-        public ResultJson<UserRoleVo> insertOrUpdateUserRole(long userId, List<String> roleNameList) {
-                List<Long> roleIdNew = roleMapper.selectIdByRoleName(roleNameList);
-                if (roleIdNew.isEmpty()) {
-                    return new ResultJson<>(EnumsUtils.FIND_FAIL);
-                }
-                List<Long> roleIdOld = userRoleMapper.selectRoleIdById(userId);
+//        /**
+//         * 添加用户权限或修改用户权限
+//         * @param userId  用户id
+//         * @param roleNameList  角色名称
+//         * @return
+//         */
+//        @Override
+//        public ResultJson<UserRoleVo> insertOrUpdateUserRole(long userId, List<String> roleNameList) {
+//                List<Long> roleIdNew = roleMapper.selectIdByRoleName(roleNameList);
+//                if (roleIdNew.isEmpty()) {
+//                    return new ResultJson<>(EnumsUtils.FIND_FAIL);
+//                }
+//                List<Long> roleIdOld = userRoleMapper.selectRoleIdById(userId);
+//
+//                for (long roleId : roleIdOld) {
+//                    if (!roleIdNew.contains(roleId))
+//                        userRoleMapper.deleteUserRoleById(this.getUserRole(userId, roleId));
+//                }
+//                for (long roleId : roleIdNew) {
+//                    if (!roleIdOld.contains(roleId)) {
+//                        userRoleMapper.insertUserRole(this.getUserRole(userId, roleId));
+//                    }
+//                }
+//                return new ResultJson<>(EnumsUtils.SUCCESS);
+//        }
 
-                for (long roleId : roleIdOld) {
-                    if (!roleIdNew.contains((int) roleId))
-                        userRoleMapper.deleteUserRoleById(this.getUserRole(userId, roleId));
-                }
-                for (long roleId : roleIdNew) {
-                    if (!roleIdOld.contains((int) roleId)) {
-                        userRoleMapper.insertUserRole(this.getUserRole(userId, roleId));
-                    }
-                }
-                return new ResultJson<>(EnumsUtils.SUCCESS);
-        }
-
-        public UserRole getUserRole(long userId, long roleId) {
-                return new UserRole(userId, roleId);
-        }
+//        public UserRole getUserRole(long userId, long roleId) {
+//                return new UserRole(userId, roleId);
+//        }
 
 }

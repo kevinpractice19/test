@@ -31,7 +31,7 @@ public interface RoleMenuMapper {
          * @param menuId
          * @return
          */
-        boolean deleteRoleMenuByMenuId(@Param("menuId") long menuId);
+        boolean updateRoleMenuStatusByMenuId(@Param("menuId") long menuId, @Param("status") int status);
 
         /**
          * 根据角色id查询菜单id

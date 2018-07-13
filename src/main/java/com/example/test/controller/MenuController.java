@@ -8,6 +8,8 @@ import com.example.test.service.MenuService;
 import com.example.test.utils.Constant;
 import com.example.test.utils.PageInfo;
 import com.example.test.utils.ResultJson;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,19 +31,15 @@ public class MenuController {
         return this.menuService.listParentMenuByUserId(userId);
     }
 
-
-
     @RequestMapping(value = "/pageMenu.do", method = RequestMethod.GET, produces = Constant.APPLICATION_JSON_UTF8_VALUE)
     public ResultJson<PageInfo<MenuVo>> pageMenu(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
         return this.menuService.selectMenuList(pageNum, pageSize);
     }
 
-
     @RequestMapping(value = "/selectParentMenu.do", method = RequestMethod.GET, produces = Constant.APPLICATION_JSON_UTF8_VALUE)
     public ResultJson<List<MenuVo>> selectParentMenu(HttpServletRequest request) {
         return this.menuService.selectParentMenu();
     }
-
 
     @RequestMapping(value = "/selectMenuByParentId.do", method = RequestMethod.GET, produces = Constant.APPLICATION_JSON_UTF8_VALUE)
     public ResultJson<List<MenuVo>> selectMenuByParentId(@RequestParam("parentId") long parentId) {
@@ -53,18 +51,16 @@ public class MenuController {
         return this.menuService.selectMenuById(menuId);
     }
 
-
     @RequestMapping(value = "/createMenu.do", method = RequestMethod.PUT, produces = Constant.APPLICATION_JSON_UTF8_VALUE)
     public ResultJson<MenuVo> createMenu(@RequestBody MenuCreateDTO createDTO) {
         return this.menuService.insertMenu(createDTO);
     }
 
-
-    @RequestMapping(value = "/removeMenuById.do/{menuId}", method = RequestMethod.DELETE, produces = Constant.APPLICATION_JSON_UTF8_VALUE)
-    public ResultJson<MenuVo> removeMenuById(@PathVariable("menuId") long menuId) {
-        return this.menuService.deleteMenuById(menuId);
+    @ApiOperation("启用（禁用菜单）")
+    @RequestMapping(value = "/removeMenuById.do", method = RequestMethod.DELETE, produces = Constant.APPLICATION_JSON_UTF8_VALUE)
+    public ResultJson<MenuVo> removeMenuById(@RequestParam("menuId") long menuId, @RequestParam("status") int status) {
+        return this.menuService.deleteMenuById(menuId, status);
     }
-
 
     @RequestMapping(value = "/modifyMenuById.do", method = RequestMethod.POST, produces = Constant.APPLICATION_JSON_UTF8_VALUE)
     public ResultJson<MenuVo> modifyMenuById(@RequestBody MenuModifyDTO modifyDTO) {

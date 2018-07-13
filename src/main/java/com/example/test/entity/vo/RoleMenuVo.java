@@ -14,13 +14,11 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class RoleMenuVo implements Serializable {
     private long roleMenuId;
-
     private long roleId;
-
     private long menuId;
     private long menuBtnId;
-
     private int menuType;
+    private int status;
 
     public RoleMenuVo(RoleMenu roleMenu) {
         this.roleMenuId = roleMenu.getId();
@@ -28,6 +26,7 @@ public class RoleMenuVo implements Serializable {
         this.menuId = roleMenu.getMenuId();
         this.menuBtnId = roleMenu.getMenuBtnId();
         this.menuType = roleMenu.getMenuType();
+        this.status = roleMenu.getStatus();
 
     }
 

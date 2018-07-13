@@ -18,10 +18,11 @@
         </sql>
 
         <select id="selectRoleIdList" resultType="int">
-                SELECT <include refid="columnResult"/> FROM noa_govern_center.govern_role where id IN
+                SELECT <include refid="columnResult"/> FROM authority_management.govern_role where id IN
                 <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
                     #{id}
                 </foreach>
+            and status='1'
         </select>
 
 
@@ -35,7 +36,7 @@
         <select id="selectRole" resultType="role">
                 SELECT
                 <include refid="columnResult"/>
-                from noa_govern_center.govern_role WHERE status='1'
+                from authority_management.govern_role WHERE status='1'
         </select>
 
 
@@ -45,12 +46,12 @@
         </insert>
 
 
-        <update id="deleteRoleById">
-                UPDATE noa_govern_center.govern_role SET status='2' WHERE id=#{roleId}
-        </update>
+        <!--<update id="deleteRoleById">-->
+                <!--UPDATE noa_govern_center.govern_role SET status='2' WHERE id=#{roleId}-->
+        <!--</update>-->
 
         <update id="updateRoleById">
-                UPDATE noa_govern_center.govern_role
+                UPDATE authority_management.govern_role
                 <set>
                     <if test="role.roleName!=null and role.roleName!=''">
                         role_name=#{role.roleName},
@@ -67,11 +68,4 @@
                 </set>
                 WHERE id=#{role.id}
         </update>
-
-        <select id="selectIdByRoleName" resultType="int">
-                SELECT  id FROM noa_govern_center.govern_role where role_name in
-                <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
-                    #{item}
-                </foreach>
-        </select>
 </mapper>

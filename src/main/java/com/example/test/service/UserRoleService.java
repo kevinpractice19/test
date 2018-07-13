@@ -10,5 +10,5 @@ public interface UserRoleService {
 
         List<Long> getRoleIdListById(long userId);
 
-        ResultJson<UserRoleVo> insertOrUpdateUserRole(long userId, List<String> roleNameList);
+//        ResultJson<UserRoleVo> insertOrUpdateUserRole(long userId, List<String> roleNameList);
 }

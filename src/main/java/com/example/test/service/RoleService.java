@@ -2,6 +2,7 @@ package com.example.test.service;
 
 
 import com.example.test.entity.dto.RoleCreateDTO;
+import com.example.test.entity.dto.RoleModifyDTO;
 import com.example.test.entity.dto.RolePageDTO;
 import com.example.test.entity.vo.RoleVo;
 import com.example.test.utils.PageInfo;
@@ -17,9 +18,8 @@ public interface RoleService {
 
         ResultJson<RoleVo> insertRole(RoleCreateDTO createDTO);
 
-        ResultJson<Boolean> deleteRoleById(long roleId);
+//        ResultJson<Boolean> deleteRoleById(long roleId);
 
-        ResultJson updateRoleById(RoleVo roleVo);
+        ResultJson<RoleVo> updateRoleById(RoleModifyDTO modifyDTO);
 
-        List<Long> selectIdByRoleName(List<String> roleName);
 }

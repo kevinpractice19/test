@@ -39,7 +39,7 @@ public interface RoleMapper {
          * @param roleId
          * @return
          */
-        boolean deleteRoleById(@Param("roleId") long roleId);
+//        boolean deleteRoleById(@Param("roleId") long roleId);
 
         /**
          * 更新角色信息
@@ -57,13 +57,5 @@ public interface RoleMapper {
          */
         List<Role> selectRoleIdList(@Param("list") List<Integer> list);
 
-        /**
-         * 根据角色名查询角色id
-         *
-         * @param list
-         * @return
-         */
-        List<Long> selectIdByRoleName(@Param("list") List<String> list);
-//
 
 }

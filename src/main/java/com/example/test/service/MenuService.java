@@ -14,7 +14,7 @@ public interface MenuService {
 
         ResultJson<MenuVo> insertMenu(MenuCreateDTO createDTO);
 
-        ResultJson<MenuVo> deleteMenuById(long menuId);
+        ResultJson<MenuVo> deleteMenuById(long menuId, int status);
 
         ResultJson<MenuVo> updateMenuById(MenuModifyDTO modifyDTO);
 
