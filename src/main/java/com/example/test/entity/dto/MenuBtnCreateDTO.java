@@ -6,7 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class OperationBtnCreateDTO {
-    private String menuId;
+    private long menuId;
+    private long roleId;
     private String btnCode;
     private String btnName;
     private String btnTitle;

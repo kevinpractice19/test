@@ -9,7 +9,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class OperationBtn {
+public class MenuBtnVo {
 
     private long id;
 
@@ -31,8 +31,8 @@ public class OperationBtn {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof OperationBtn) {
-            OperationBtn operationBtn = (OperationBtn) obj;
+        if (obj instanceof MenuBtnVo) {
+            MenuBtnVo operationBtn = (MenuBtnVo) obj;
             return this.menuId==(operationBtn.getMenuId()) && this.btnCode.equals(operationBtn.getBtnCode()) && this.btnName.equals(operationBtn.getBtnName()) && btnTitle.equals(operationBtn.getBtnTitle())
                     && this.description.equals(operationBtn.getDescription()) && this.createTime.equals(operationBtn.getCreateTime()) && this.updateTime.equals(operationBtn.getUpdateTime());
         }

@@ -22,20 +22,20 @@
     <select id="selectOperationBtn" resultType="operationBtn">
         SELECT
         <include refid="columnResult"/>
-        FROM authority_management.govern_operation_btn
+        FROM authority_management.govern_menu_btn
     </select>
 
     <select id="selectOperationBtnById" resultType="operationBtn">
         SELECT
         <include refid="columnResult"/>
-        FROM authority_management.govern_operation_btn WHERE id=#{id}
+        FROM authority_management.govern_menu_btn WHERE id=#{id}
     </select>
 
 
     <!--添加菜单信息-->
     <insert id="insertOperationBtn" parameterType="operationBtn" useGeneratedKeys="true" keyProperty="operationBtn.id"
             keyColumn="GENERATED_KEY">
-                insert into authority_management.govern_operation_btn(menu_id, btn_code , btn_name ,btn_title,description)
+                insert into authority_management.govern_menu_btn(menu_id, btn_code , btn_name ,btn_title,description)
                 values (#{operationBtn.menuId}, #{operationBtn.btnCode}, #{operationBtn.btnName}, #{operationBtn.btnTitle},#{operationBtn.description})
         </insert>
 
@@ -64,7 +64,7 @@
     <!--</update>-->
 
     <select id="selectOperationBtnByIdList" resultType="operationBtn" >
-        SELECT <include refid="columnResult"/> FROM authority_management.govern_operation_btn where id in
+        SELECT <include refid="columnResult"/> FROM authority_management.govern_menu_btn where id in
         <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
             #{item}
         </foreach>
@@ -73,7 +73,7 @@
     <select id="selectOperationBtnByMenuId" resultType="operationBtn">
         SELECT
         <include refid="columnResult"/>
-        FROM authority_management.govern_operation_btn where menu_id = #{menuId}
+        FROM authority_management.govern_menu_btn where menu_id = #{menuId}
     </select>
 
     <!--<select id="selectMenuList" resultType="menu">-->
