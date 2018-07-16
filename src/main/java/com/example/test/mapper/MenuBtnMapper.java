@@ -1,21 +1,26 @@
 package com.example.test.mapper;
 
-import com.example.test.entity.po.OperationBtn;
+import com.example.test.entity.po.MenuBtn;
+import lombok.Data;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface OperationBtnMapper {
+public interface MenuBtnMapper {
 
-    boolean insertOperationBtn(@Param("operationBtn") OperationBtn operationBtn);
+    boolean insertMenuBtn(@Param("menuBtn") MenuBtn menuBtn);
 
-    OperationBtn selectOperationBtnById(@Param("id") long id);
+    MenuBtn selectMenuBtnById(@Param("id") long id);
 
-    List<OperationBtn> selectOperationBtn();
+    List<MenuBtn> selectMenuBtn();
 
-    List<OperationBtn> selectOperationBtnByMenuId(@Param("menuId") long menuId);
+    List<MenuBtn> selectMenuBtnByMenuId(@Param("menuId") long menuId);
 
-    List<OperationBtn> selectOperationBtnByIdList(@Param("list") List<Long> list);
+    List<MenuBtn> selectMenuBtnByIdList(@Param("list") List<Long> list);
+
+    Boolean updateMenuBtnById(@Param("menuBtn") MenuBtn menuBtn);
+
+    Boolean updateMenuBtnStatusById(@Param("menuBtnId") long menuBtnId, @Param("status") int status);
 }

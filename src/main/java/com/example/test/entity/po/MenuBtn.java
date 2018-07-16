@@ -9,17 +9,15 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class MenuBtnVo {
+public class MenuBtn {
 
     private long id;
-
     private long menuId;
-
     private String btnCode;
     private String btnName;
     private String btnTitle;
     private String description;
-
+    private int status;
     private Date createTime;
     private Date updateTime;
 
@@ -31,9 +29,9 @@ public class MenuBtnVo {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof MenuBtnVo) {
-            MenuBtnVo operationBtn = (MenuBtnVo) obj;
-            return this.menuId==(operationBtn.getMenuId()) && this.btnCode.equals(operationBtn.getBtnCode()) && this.btnName.equals(operationBtn.getBtnName()) && btnTitle.equals(operationBtn.getBtnTitle())
+        if (obj instanceof MenuBtn) {
+            MenuBtn operationBtn = (MenuBtn) obj;
+            return this.menuId == (operationBtn.getMenuId()) && this.btnCode.equals(operationBtn.getBtnCode()) && this.btnName.equals(operationBtn.getBtnName()) && btnTitle.equals(operationBtn.getBtnTitle())
                     && this.description.equals(operationBtn.getDescription()) && this.createTime.equals(operationBtn.getCreateTime()) && this.updateTime.equals(operationBtn.getUpdateTime());
         }
         return super.equals(obj);

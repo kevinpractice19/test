@@ -39,10 +39,10 @@ public class RoleMenuServiceImpl implements RoleMenuService {
         return new ResultJson<>(EnumsUtils.DELETE_FAIL, false);
     }
 
-    @Override
-    public List<Long> selectRoleMenuByMenuBtnId(List<Long> list) {
-        return this.roleMenuMapper.selectRoleMenuByMenuBtnId(list);
-    }
+//    @Override
+//    public List<Long> selectRoleMenuByMenuBtnId(List<Long> list) {
+//        return this.roleMenuMapper.selectRoleMenuByMenuBtnId(list);
+//    }
 
     @Override
     @Transactional

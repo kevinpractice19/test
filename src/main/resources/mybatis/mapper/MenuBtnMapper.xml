@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.example.test.mapper.OperationBtnMapper">
+<mapper namespace="com.example.test.mapper.MenuBtnMapper">
     <!-- 动态sql -->
     <sql id="columnResult">
             <![CDATA[
@@ -12,6 +12,7 @@
                 btn_name,
                 btn_title,
                 description,
+                status,
                 create_time,
                 update_time
 
@@ -19,87 +20,65 @@
         </sql>
 
 
-    <select id="selectOperationBtn" resultType="operationBtn">
+    <select id="selectMenuBtn" resultType="MenuBtn">
         SELECT
         <include refid="columnResult"/>
         FROM authority_management.govern_menu_btn
     </select>
 
-    <select id="selectOperationBtnById" resultType="operationBtn">
+    <select id="selectMenuBtnById" resultType="MenuBtn">
         SELECT
         <include refid="columnResult"/>
-        FROM authority_management.govern_menu_btn WHERE id=#{id}
+        FROM authority_management.govern_menu_btn WHERE id=#{id} AND status = '1'
     </select>
 
 
     <!--添加菜单信息-->
-    <insert id="insertOperationBtn" parameterType="operationBtn" useGeneratedKeys="true" keyProperty="operationBtn.id"
+    <insert id="insertMenuBtn" parameterType="menuBtn" useGeneratedKeys="true" keyProperty="menuBtn.id"
             keyColumn="GENERATED_KEY">
                 insert into authority_management.govern_menu_btn(menu_id, btn_code , btn_name ,btn_title,description)
-                values (#{operationBtn.menuId}, #{operationBtn.btnCode}, #{operationBtn.btnName}, #{operationBtn.btnTitle},#{operationBtn.description})
+                values (#{menuBtn.menuId}, #{menuBtn.btnCode}, #{menuBtn.btnName}, #{menuBtn.btnTitle},#{menuBtn.description})
         </insert>
 
-    <!--&lt;!&ndash; 根据id修改菜单信息&ndash;&gt;-->
-    <!--<update id="updateMenuById">-->
-        <!--update authority_management.govern_menu-->
-        <!--<set>-->
-            <!--id = #{menu.id} ,-->
-            <!--<if test="menu.menuName != null and menu.menuName != ''">-->
-                <!--menu_name = #{menu.menuName},-->
-            <!--</if>-->
-            <!--<if test="menu.menuPath != null and menu.menuPath != ''">-->
-                <!--menu_path = #{menu.menuPath},-->
-            <!--</if>-->
-            <!--<if test="menu.menuSort != 0">-->
-                <!--menu_sort = #{menu.menuSort},-->
-            <!--</if>-->
-            <!--<if test="menu.parentId != null">-->
-                <!--parent_id = #{menu.parentId},-->
-            <!--</if>-->
-            <!--<if test="menu.updateTime != null">-->
-                <!--update_time = #{menu.updateTime},-->
-            <!--</if>-->
-        <!--</set>-->
-        <!--where id = #{menu.id}-->
-    <!--</update>-->
+    <!-- 根据id修改菜单信息-->
+    <update id="updateMenuBtnById">
+        update authority_management.govern_menu_btn
+        <set>
+            id = #{menuBtn.id} ,
+            <if test="menuBtn.btnCode != null and menuBtn.btnCode != ''">
+                btn_code = #{menuBtn.btnCode},
+            </if>
+            <if test="menuBtn.btnName != null and menuBtn.btnName != ''">
+                btn_name = #{menuBtn.btnName},
+            </if>
+            <if test="menuBtn.btnTitle != null and menuBtn.btnTitle != ''">
+                btn_title = #{menuBtn.btnTitle},
+            </if>
+            <if test="menuBtn.description != null and menuBtn.btnTitle != ''">
+                description = #{menuBtn.description},
+            </if>
+        </set>
+        where id = #{menuBtn.id}
+    </update>
 
-    <select id="selectOperationBtnByIdList" resultType="operationBtn" >
-        SELECT <include refid="columnResult"/> FROM authority_management.govern_menu_btn where id in
+    <select id="selectMenuBtnByIdList" resultType="menuBtn">
+        SELECT
+        <include refid="columnResult"/>
+        FROM authority_management.govern_menu_btn where id in
         <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
             #{item}
         </foreach>
+        AND status = '1'
     </select>
 
-    <select id="selectOperationBtnByMenuId" resultType="operationBtn">
+    <select id="selectMenuBtnByMenuId" resultType="menuBtn">
         SELECT
         <include refid="columnResult"/>
-        FROM authority_management.govern_menu_btn where menu_id = #{menuId}
+        FROM authority_management.govern_menu_btn where menu_id = #{menuId}    AND status = '1'
     </select>
 
-    <!--<select id="selectMenuList" resultType="menu">-->
-        <!--SELECT-->
-        <!--<include refid="columnResult"/>-->
-        <!--FROM authority_management.govern_menu order by menu_sort-->
-    <!--</select>-->
-
-    <!--<select id="selectParentName" resultType="String">-->
-                <!--SELECT menu_name-->
-                <!--FROM authority_management.govern_menu where id = #{parentId} order by menu_sort-->
-        <!--</select>-->
-
-    <!--<select id="selectMenuByMenuName" resultType="menu">-->
-                <!--SELECT id FROM authority_management.govern_menu WHERE menu_name=#{menuName}-->
-        <!--</select>-->
-
-
-    <!--<select id="selectMenuByParentIdList" resultType="menu">-->
-
-        <!--SELECT-->
-        <!--<include refid="columnResult"/>-->
-        <!--FROM authority_management.govern_menu WHERE parent_id =ANY(SELECT-->
-        <!--parent_id-->
-        <!--FROM authority_management.govern_menu WHERE parent_id = #{parentId}) AND parent_id != 0 order by menu_sort-->
-
-    <!--</select>-->
+    <update id="updateMenuBtnStatusById">
+        UPDATE authority_management.govern_menu_btn SET status=#{status} WHERE id=#{menuBtnId}
+    </update>
 
 </mapper>

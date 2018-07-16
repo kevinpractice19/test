@@ -9,8 +9,6 @@
                 id,
                 role_id,
                 menu_id,
-                menu_btn_id,
-                menu_type,
                 status
 
 
@@ -26,20 +24,14 @@
         AND status = '1'
     </select>
 
-    <select id="selectRoleMenuByMenuBtnId" resultType="java.lang.Long">
-        SELECT DISTINCT menu_btn_id FROM authority_management.govern_role_menu where role_id in
-        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
-            #{item}
-        </foreach>
-        AND status = '1' and menu_btn_id is not null
-    </select>
-
     <select id="selectRoleMenuByRoleId" resultType="java.lang.Long">
                 SELECT menu_id FROM authority_management.govern_role_menu WHERE role_id = #{roleId} AND status = '1'
         </select>
 
     <insert id="insertRoleMenu" parameterType="roleMenu">
-                INSERT INTO authority_management.govern_role_menu(role_id,menu_id,menu_btn_id, menu_type) VALUES(#{roleMenu.roleId},#{roleMenu.menuId},#{roleMenu.menuBtnId}, #{roleMenu.menuType})
+                INSERT INTO authority_management.govern_role_menu(role_id,menu_id)
+                VALUES
+                (#{roleMenu.roleId},#{roleMenu.menuId})
         </insert>
 
 

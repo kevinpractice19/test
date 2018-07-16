@@ -50,6 +50,4 @@ public interface RoleMenuMapper {
          */
         boolean deleteRoleMenuByMenuIdRoleId(@Param("roleId") long roleId, @Param("menuId") long menuId);
 
-        List<Long> selectRoleMenuByMenuBtnId(@Param("list") List<Long> list);
-
 }

@@ -3,24 +3,25 @@ package com.example.test.service.Impl;
 import com.example.test.entity.dto.MenuCreateDTO;
 import com.example.test.entity.dto.MenuModifyDTO;
 import com.example.test.entity.po.Menu;
-import com.example.test.entity.po.OperationBtn;
+import com.example.test.entity.po.MenuBtn;
 import com.example.test.entity.po.Role;
 import com.example.test.entity.po.RoleMenu;
 import com.example.test.entity.vo.MenuVo;
 import com.example.test.mapper.MenuMapper;
-import com.example.test.mapper.OperationBtnMapper;
+import com.example.test.mapper.MenuBtnMapper;
 import com.example.test.mapper.RoleMapper;
 import com.example.test.mapper.RoleMenuMapper;
 import com.example.test.service.MenuService;
+import com.example.test.service.RoleMenuBtnService;
 import com.example.test.service.RoleMenuService;
 import com.example.test.service.UserRoleService;
 import com.example.test.utils.*;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.sun.xml.internal.bind.v2.TODO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -48,42 +49,46 @@ public class MenuServiceImpl implements MenuService {
     private RoleMenuMapper roleMenuMapper;
 
     @Autowired
-    private OperationBtnMapper operationBtnMapper;
+    private MenuBtnMapper menuBtnMapper;
 
     @Autowired
     private RoleMapper roleMapper;
+
+    @Autowired
+    private RoleMenuBtnService roleMenuBtnService;
 
     @Override
     public ResultJson<List<MenuVo>> listParentMenuByUserId(long userId) {
         List<Long> roleIdList = this.userRoleService.getRoleIdListById(userId);
         List<Long> menuIdList = this.roleMenuService.selectRoleMenuIdById(roleIdList);
-        List<Long> operationIdList = this.roleMenuService.selectRoleMenuByMenuBtnId(roleIdList);  //根据roleId查询出该角色所拥有所有按钮权限
-        List<OperationBtn> operationBtnList = null;
-        if (!CollectionUtils.isEmpty(operationIdList)) {
-            operationBtnList = this.operationBtnMapper.selectOperationBtnByIdList(operationIdList); //根据按钮idList查询出按钮所有信息
+        List<Long> menuBtnIdList = this.roleMenuBtnService.selectRoleMenuBtnByRoleId(roleIdList);  //根据roleId查询出该角色所拥有所有按钮权限
+        List<MenuBtn> menuBtnList = null;
+        if (!CollectionUtils.isEmpty(menuBtnIdList)) {
+            menuBtnList = this.menuBtnMapper.selectMenuBtnByIdList(menuBtnIdList); //根据按钮idList查询出按钮所有信息
         }
         List<Menu> menuList = this.menuMapper.selectMenuByIdList(menuIdList); //查出所有顶级菜单
         List<MenuVo> result = new ArrayList<>();
         for (Menu menu : menuList) {
-            result.add(this.getSubMenu(new MenuVo(menu), operationBtnList));
+            result.add(this.getSubMenu(new MenuVo(menu), menuBtnList));
         }
         return new ResultJson<>(EnumsUtils.SUCCESS, result);
     }
 
-    private MenuVo getSubMenu(MenuVo menuVo, List<OperationBtn> operationBtnList) {
+    private MenuVo getSubMenu(MenuVo menuVo, List<MenuBtn> menuBtnList) {
         if (menuVo != null) {
             List<Menu> menuList = menuMapper.selectMenuByParentId(menuVo.getMenuId());
             List<MenuVo> menuVoList = this.poTransformationVoMethod(menuList);
             if (!CollectionUtils.isEmpty(menuVoList)) {
                 menuVo.setMenuVoList(menuVoList);
                 for (MenuVo subMenu : menuVoList) {
-                    List<OperationBtn> btnList = this.operationBtnMapper.selectOperationBtnByMenuId(subMenu.getMenuId());
-                    for (OperationBtn operationBtn : btnList) {
-                        if (!CollectionUtils.isEmpty(operationBtnList) && operationBtnList.contains(operationBtn)) {
-                            subMenu.getOperationBtnList().add(operationBtn);
+                    List<MenuBtn> btnList = this.menuBtnMapper.selectMenuBtnByMenuId(subMenu.getMenuId());
+
+                    for (MenuBtn menuBtn : btnList) {
+                        if (!CollectionUtils.isEmpty(menuBtnList) && menuBtnList.contains(menuBtn)) {
+                            subMenu.getMenuBtnList().add(menuBtn);
                         }
                     }
-                    this.getSubMenu(subMenu, operationBtnList);
+                    this.getSubMenu(subMenu, menuBtnList);
                 }
             }
         }
@@ -205,6 +210,7 @@ public class MenuServiceImpl implements MenuService {
         if (!this.roleMenuMapper.updateRoleMenuStatusByMenuId(menuId,status)) {
             return new ResultJson<>(EnumsUtils.DELETE_FAIL);
         }
+        // TODO: 2018/7/16   禁用菜单的同时也会禁用掉该菜单上面的所有按钮，还未完成
         return new ResultJson<>(EnumsUtils.SUCCESS);
     }
 

@@ -34,28 +34,11 @@ public interface RoleMapper {
         boolean insertRole(@Param("role") Role role);
 
         /**
-         * 根据角色id删除该角色
-         *
-         * @param roleId
-         * @return
-         */
-//        boolean deleteRoleById(@Param("roleId") long roleId);
-
-        /**
          * 更新角色信息
          *
          * @param role
          * @return
          */
         boolean updateRoleById(@Param("role") Role role);
-
-        /**
-         * 查询角色id
-         *
-         * @param list
-         * @return
-         */
-        List<Role> selectRoleIdList(@Param("list") List<Integer> list);
-
 
 }

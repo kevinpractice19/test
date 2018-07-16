@@ -13,7 +13,7 @@ public interface RoleMenuService {
 
         ResultJson<Boolean> deleteRoleMenuByMenuIdRoleId(long menuId, long roleId);
 
-        List<Long> selectRoleMenuByMenuBtnId(List<Long> list);
+//        List<Long> selectRoleMenuByMenuBtnId(List<Long> list);
 
         ResultJson<RoleMenuVo> insertRoleMenu(RoleMenuCreateDTO createDTO);
 

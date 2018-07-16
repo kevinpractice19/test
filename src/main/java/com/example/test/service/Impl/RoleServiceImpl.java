@@ -1,12 +1,10 @@
 package com.example.test.service.Impl;
 
 
+import com.example.test.entity.dto.PageDTO;
 import com.example.test.entity.dto.RoleCreateDTO;
 import com.example.test.entity.dto.RoleModifyDTO;
-import com.example.test.entity.dto.RolePageDTO;
-import com.example.test.entity.po.Menu;
 import com.example.test.entity.po.Role;
-import com.example.test.entity.po.RoleMenu;
 import com.example.test.entity.vo.RoleVo;
 import com.example.test.mapper.MenuMapper;
 import com.example.test.mapper.RoleMapper;
@@ -18,13 +16,9 @@ import com.example.test.utils.PageInfo;
 import com.example.test.utils.ResultJson;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import org.springframework.beans.BeanUtils;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
-import sun.security.krb5.internal.PAData;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -44,7 +38,7 @@ public class RoleServiceImpl implements RoleService {
 
 
     @Override
-    public ResultJson<PageInfo<RoleVo>> selectRole(RolePageDTO pageDTO) {
+    public ResultJson<PageInfo<RoleVo>> selectRole(PageDTO pageDTO) {
         if (pageDTO.getPageNum() < 1) {
             pageDTO.setPageNum(Constant.PAGE_NUM);
         }
@@ -89,19 +83,6 @@ public class RoleServiceImpl implements RoleService {
 //        }
         return new ResultJson<>(EnumsUtils.SUCCESS, this.selectRoleById(role1.getId()).getData());
     }
-
-//    @Override
-//    @CacheEvict(value = "roleVo", key = "#roleId+'roleVo'")
-//    public ResultJson<Boolean> deleteRoleById(long roleId) {
-//        ResultJson resultJson = this.selectRoleById(roleId);
-//        if (resultJson.getData() == null) {
-//            return new ResultJson<>(EnumsUtils.FIND_FAIL);
-//        }
-//        if (this.roleMapper.deleteRoleById(roleId)) {
-//            return new ResultJson<>(EnumsUtils.SUCCESS, true);
-//        }
-//        return new ResultJson<>(EnumsUtils.DELETE_FAIL, false);
-//    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
