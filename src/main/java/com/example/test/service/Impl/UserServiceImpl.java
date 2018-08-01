@@ -15,6 +15,7 @@ import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
+import org.omg.PortableInterceptor.USER_EXCEPTION;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -123,13 +124,14 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "userVo", key = "#userModifyDTO.userId+'userVo'")
+//    @Transactional(rollbackFor = Exception.class)
+//    @CachePut(value = "userVo", key = "#userModifyDTO.userId+'userVo'")
     public ResultJson<UserVo> updateUserById(UserModifyDTO userModifyDTO) {
         try {
             User user = new User();
             user.setId(userModifyDTO.getUserId());
-            BeanUtils.copyProperties(userModifyDTO, user);
+            user.setUserName(userModifyDTO.getUserName());
+//            BeanUtils.copyProperties(userModifyDTO, user);
             if (!this.userMapper.updateUserById(user)) {
                 throw new GovernCenterException(EnumsUtils.UPDATE_FAIL);
             }
@@ -183,6 +185,25 @@ public class UserServiceImpl implements UserService {
             throw new GovernCenterException(230, e.getMessage());
         }
         return new ResultJson<>(EnumsUtils.RESET_PASSWORD_FAIL);
+    }
+
+    @Override
+    public ResultJson<UserVo> updateUserByIdTest(UserModifyDTO userModifyDTO) {
+        User user = new User();
+        user.setId(userModifyDTO.getUserId());
+        user.setUserName(userModifyDTO.getUserName());
+        user.setAccount(userModifyDTO.getAccount());
+        user.setUserToken(userModifyDTO.getUserToken());
+        user.setLastLoginIp(userModifyDTO.getLastLoginIp());
+        user.setLastLoginTime(userModifyDTO.getLastLoginTime());
+        user.setCreateTime(userModifyDTO.getCreateTime());
+        user.setUpdateTime(userModifyDTO.getUpdateTime());
+        user.setPassword(userModifyDTO.getPassword());
+        user.setStatus(userModifyDTO.getStatus());
+        if (this.userMapper.updateUserByIdTest(userModifyDTO)){
+            return new ResultJson<>(new UserVo(user));
+        }
+        return null;
     }
 
     @Override

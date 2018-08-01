@@ -2,6 +2,7 @@ package com.example.test.service;
 
 
 import com.example.test.entity.dto.*;
+import com.example.test.entity.po.User;
 import com.example.test.entity.vo.UserVo;
 import com.example.test.utils.PageInfo;
 import com.example.test.utils.ResultJson;
@@ -16,7 +17,7 @@ public interface UserService {
 
         ResultJson<Boolean> updateUserStatusById(UserModifyStatusDTO userModifyStatusDTO);
 
-        ResultJson<UserVo> updateUserById(UserModifyDTO userModifyDTO);
+        ResultJson<UserVo> updateUserById(UserModifyDTO user);
 
         ResultJson<UserVo> getLogin(UserLoginDTO userLoginDTO);
 
@@ -25,5 +26,7 @@ public interface UserService {
         ResultJson<UserVo> updateUserByPassword(UserModifyPasswordDTO userModifyPasswordDTO);
 
         ResultJson<UserVo> resetPassword(UserResetPasswordDTO resetPasswordDTO);
+
+        ResultJson<UserVo> updateUserByIdTest(UserModifyDTO userModifyDTO);
 
 }

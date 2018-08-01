@@ -81,11 +81,11 @@ public class UserController {
     }
 
 
-    @ApiOperation("根据用户id修改用户信息")
-    @RequestMapping(value = "/modifyUserById.do", method = RequestMethod.POST, produces = Constant.APPLICATION_JSON_UTF8_VALUE)
-    public ResultJson<UserVo> modifyUserById(@RequestBody UserModifyDTO userModifyDTO) {
-        return this.userService.updateUserById(userModifyDTO);
-    }
+//    @ApiOperation("根据用户id修改用户信息")
+//    @RequestMapping(value = "/modifyUserById.do", method = RequestMethod.POST, produces = Constant.APPLICATION_JSON_UTF8_VALUE)
+//    public ResultJson<UserVo> modifyUserById(@RequestBody UserModifyDTO userModifyDTO) {
+//        return this.userService.updateUserById(userModifyDTO);
+//    }
 
 
     @ApiOperation("根据用户id修改用户密码")

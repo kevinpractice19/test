@@ -13,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-    private long id;
+    private Long id;
 
     private String userName;
 
@@ -21,7 +21,7 @@ public class User {
 
     private String password;
 
-    private int status;
+    private Integer status;
 
     private String userToken;
 

@@ -15,6 +15,8 @@ import java.util.Date;
 public class Role {
     private long id;
 
+    private long roleId;
+
     private String roleName;
 
     private String remark;
@@ -26,6 +28,7 @@ public class Role {
     private Date updateTime;
 
     public Role(RoleVo vo) {
+        String test = vo.getRemark();
         this.id = vo.getRoleId();
         this.roleName = vo.getRoleName();
         this.remark = vo.getRemark();

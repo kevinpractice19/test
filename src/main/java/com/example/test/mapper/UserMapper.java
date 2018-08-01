@@ -1,5 +1,6 @@
 package com.example.test.mapper;
 
+import com.example.test.entity.dto.UserModifyDTO;
 import com.example.test.entity.po.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -56,7 +57,15 @@ public interface UserMapper {
          * @param user
          * @return
          */
-        boolean updateUserById(@Param("user") User user);
+        Boolean updateUserById(@Param("user") User user);
+
+        /**
+         * 修改用户信息
+         *
+         * @param user
+         * @return
+         */
+        Boolean updateUserByIdTest(@Param("user") UserModifyDTO user);
 
         /**
          * 根据用户账号查询该用户信息

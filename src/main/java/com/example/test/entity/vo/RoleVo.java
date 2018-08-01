@@ -17,6 +17,8 @@ import java.util.List;
 public class RoleVo implements Serializable {
     private long roleId;
 
+    private long uniqRoleId;
+
     private String roleName;
 
     private String remark;
@@ -34,6 +36,7 @@ public class RoleVo implements Serializable {
         this.roleName = role.getRoleName();
         this.remark = role.getRemark();
         this.status = role.getStatus();
+        this.uniqRoleId = role.getRoleId();
         this.createTime = new DateTime(role.getCreateTime()).toString("yyyy-MM-dd HH:mm:ss") ;
         this.updateTime = new DateTime(role.getUpdateTime()).toString("yyyy-MM-dd HH:mm:ss") ;
     }

@@ -1,6 +1,5 @@
 package com.example.test.entity.dto;
 
-import com.sun.xml.internal.ws.wsdl.writer.document.ParamType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

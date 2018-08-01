@@ -8,6 +8,7 @@
 
 
                 id,
+                role_id,
                 role_name,
                 remark,
                 status,
@@ -41,14 +42,10 @@
 
 
         <insert id="insertRole" parameterType="role" useGeneratedKeys="true" keyProperty="role.id" keyColumn="GENERATED_KEY">
-                INSERT into authority_management.govern_role(role_name,remark,status)
-                VALUES (#{role.roleName},#{role.remark},1)
+                INSERT into authority_management.govern_role(role_id, role_name,remark,status)
+                VALUES ((SELECT MAX(role_id)+1 FROM authority_management.govern_role AS roleId),#{role.roleName},#{role.remark},1)
         </insert>
 
-
-        <!--<update id="deleteRoleById">-->
-                <!--UPDATE noa_govern_center.govern_role SET status='2' WHERE id=#{roleId}-->
-        <!--</update>-->
 
         <update id="updateRoleById">
                 UPDATE authority_management.govern_role
