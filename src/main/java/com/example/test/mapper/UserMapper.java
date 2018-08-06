@@ -65,7 +65,7 @@ public interface UserMapper {
          * @param user
          * @return
          */
-        Boolean updateUserByIdTest(@Param("user") UserModifyDTO user);
+        Boolean updateUserByIdTest(@Param("user") User user);
 
         /**
          * 根据用户账号查询该用户信息

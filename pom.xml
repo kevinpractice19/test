@@ -138,7 +138,11 @@
             <version>3.3.2</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>java-emoji-converter</artifactId>
+            <version>0.0.1</version>
+        </dependency>
     </dependencies>
 
 

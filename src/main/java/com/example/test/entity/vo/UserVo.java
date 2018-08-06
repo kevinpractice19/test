@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserVo implements Serializable {
+public class UserVo implements Serializable,Cloneable{
 
     private long userId;
 

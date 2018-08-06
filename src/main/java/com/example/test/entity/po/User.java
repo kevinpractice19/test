@@ -33,4 +33,19 @@ public class User {
 
     private Date lastLoginTime;
 
+    public User(String aa){
+        this.userName = aa;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return id.equals(((User)obj).getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return id.intValue();
+    }
+
+
 }

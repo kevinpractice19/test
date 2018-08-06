@@ -86,6 +86,7 @@ public class UserServiceImpl implements UserService {
     public ResultJson<UserVo> insertUser(UserCreateDTO userCreateDTO) {
         User user = new User();
         BeanUtils.copyProperties(userCreateDTO, user);
+//        user.setId(2l);
         try {
             int count = this.userMapper.selectUserByAccountCount(user.getAccount());
             if (count >= 1) {
@@ -102,6 +103,7 @@ public class UserServiceImpl implements UserService {
             UserRole userRole = new UserRole();
             userRole.setRoleId(userCreateDTO.getRoleId());
             userRole.setUserId(user.getId());
+//            userRole.setId(1L);
             if (!this.userRoleMapper.insertUserRole(userRole)) {
                 throw new GovernCenterException(EnumsUtils.INSERT_FAIL);
             }
@@ -124,8 +126,8 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-//    @Transactional(rollbackFor = Exception.class)
-//    @CachePut(value = "userVo", key = "#userModifyDTO.userId+'userVo'")
+    @Transactional(rollbackFor = Exception.class)
+    @CachePut(value = "userVo", key = "#userModifyDTO.userId+'userVo'")
     public ResultJson<UserVo> updateUserById(UserModifyDTO userModifyDTO) {
         try {
             User user = new User();
@@ -200,7 +202,7 @@ public class UserServiceImpl implements UserService {
         user.setUpdateTime(userModifyDTO.getUpdateTime());
         user.setPassword(userModifyDTO.getPassword());
         user.setStatus(userModifyDTO.getStatus());
-        if (this.userMapper.updateUserByIdTest(userModifyDTO)){
+        if (this.userMapper.updateUserByIdTest(user)){
             return new ResultJson<>(new UserVo(user));
         }
         return null;

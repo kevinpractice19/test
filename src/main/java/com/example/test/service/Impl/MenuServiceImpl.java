@@ -81,7 +81,6 @@ public class MenuServiceImpl implements MenuService {
                 menuVo.setMenuVoList(menuVoList);
                 for (MenuVo subMenu : menuVoList) {
                     List<MenuBtn> btnList = this.menuBtnMapper.selectMenuBtnByMenuId(subMenu.getMenuId());
-
                     for (MenuBtn menuBtn : btnList) {
                         if (!CollectionUtils.isEmpty(menuBtnList) && menuBtnList.contains(menuBtn)) {
                             subMenu.getMenuBtnList().add(menuBtn);
@@ -178,16 +177,16 @@ public class MenuServiceImpl implements MenuService {
         return new ResultJson<>(EnumsUtils.SUCCESS, this.selectMenuById(menu.getId()).getData());
     }
 
-    private void createRoleMenu(List<Long> roleIdList, Menu menu) {
+    @Transactional
+    public void createRoleMenu(List<Long> roleIdList, Menu menu) {
         RoleMenu roleMenu = new RoleMenu();
         if (!CollectionUtils.isEmpty(roleIdList)) {
             for (int i = 0; i < roleIdList.size(); i++) {
-                roleMenu.setMenuId(menu.getId());
                 Role role = roleMapper.selectRoleById(roleIdList.get(i));
                 if (role == null) {
                     throw new GovernCenterException(300, "该角色不存在");
                 }
-                roleMenu.setRoleId(role.getId());
+                roleMenu.setMenuId(menu.getId());
                 roleMenu.setRoleId(roleIdList.get(i));
                 if (!this.roleMenuMapper.insertRoleMenu(roleMenu)) {
                     throw new GovernCenterException(EnumsUtils.INSERT_FAIL);

@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserRole {
-        private long id;
+        private Long id;
 
         private long userId;
 
@@ -22,4 +22,15 @@ public class UserRole {
                 this.userId = userId;
                 this.roleId = roleId;
         }
+
+        @Override
+        public boolean equals(Object obj) {
+                return id.equals(((UserRole)obj).getId());
+        }
+
+        @Override
+        public int hashCode() {
+                return id.intValue();
+        }
+
 }
