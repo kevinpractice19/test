@@ -14,7 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class UserModifyDTO {
 
-    private long userId;
+    private Long userId;
 
     private String userName;
 
@@ -22,7 +22,7 @@ public class UserModifyDTO {
 
     private String password;
 
-    private int status;
+    private Integer status;
 
     private String userToken;
 

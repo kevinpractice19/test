@@ -10,6 +10,7 @@ import com.example.test.entity.vo.UserVo;
 import com.example.test.mapper.RoleMapper;
 import com.example.test.mapper.UserMapper;
 import com.example.test.mapper.UserRoleMapper;
+import com.example.test.utils.PasswordUtils;
 import com.example.test.utils.ResultJson;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +18,9 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.stubbing.Answer;
 import org.springframework.beans.BeanUtils;
 
 import java.util.Date;
@@ -26,7 +29,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UserServiceImplTest {
+public class UserServiceImplTest2 {
 
     @InjectMocks
     private UserServiceImpl userService;
@@ -41,7 +44,7 @@ public class UserServiceImplTest {
     @Mock
     private UserRoleMapper userRoleMapper;
 
-    private User user = Mockito.mock(User.class);
+    private User user = new User();
     private UserCreateDTO createDTO = new UserCreateDTO();
     private UserRole userRole = new UserRole();
     private Role role = new Role();
@@ -71,25 +74,25 @@ public class UserServiceImplTest {
         role.setUpdateTime(date);
         userRole.setId(1L);
         userRole.setUserId(user.getId());
+        createDTO.setRoleId(1L);
         userRole.setRoleId(createDTO.getRoleId());
         userModifyDTO.setUserId(2L);
         userModifyDTO.setAccount("15271050320");
         userModifyDTO.setPassword("888888");
         userModifyDTO.setUserName("aaa");
         userModifyDTO.setLastLoginIp("192.168.1.110");
-        userModifyDTO.setLastLoginTime(date);
-        userModifyDTO.setCreateTime(date);
-        userModifyDTO.setUpdateTime(date);
+        userModifyDTO.setLastLoginTime(new Date());
+        userModifyDTO.setCreateTime(new Date());
+        userModifyDTO.setUpdateTime(new Date());
         userModifyDTO.setUserToken("97f8d6726da39cfee50478f63f72a416");
         userModifyDTO.setStatus(1);
         BeanUtils.copyProperties(user, createDTO);
-        createDTO.setRoleId(1L);
         BeanUtils.copyProperties(userModifyDTO, user);
         user.setId(userModifyDTO.getUserId());
         userModifyStatusDTO.setUserId(user.getId());
         userModifyStatusDTO.setStatus(2);
         Mockito.when(userMapper.updateUserStatusById(userModifyStatusDTO.getUserId(), userModifyStatusDTO.getStatus())).thenReturn(true);
-        Mockito.when(userMapper.selectUserById(2L)).thenReturn(user);
+
         Mockito.when(roleMapper.selectRoleById(1L)).thenReturn(role);
         Mockito.when(userMapper.insertUser(user)).thenReturn(true);
         Mockito.when(userRoleMapper.insertUserRole(userRole)).thenReturn(true);
@@ -99,18 +102,41 @@ public class UserServiceImplTest {
 
     @Test
     public void selectUserById() {
-        ResultJson<UserVo> userVoResultJson = this.userService.selectUserById(1L);
+        Mockito.when(userMapper.selectUserById(2L)).thenReturn(user);
+
+        ResultJson<UserVo> userVoResultJson = this.userService.selectUserById(2L);
         assertNotNull(userVoResultJson.getData());
         assertEquals(userVoResultJson.getData().getAccount(), "15271050320");
-        System.out.println(userVoResultJson.getData().getAccount());
     }
 
 
     @Test
     public void insertUser() {
+        Mockito.when(userMapper.selectUserByAccountCount("15271050320")).thenReturn(0);
+
+        User insertUser = new User();
+        insertUser.setUserName("aaa");
+        insertUser.setAccount("15271050320");
+        Mockito.when(userMapper.insertUser(insertUser)).thenAnswer(new Answer<Boolean>() {
+            @Override
+            public Boolean answer(InvocationOnMock invocation) throws Throwable {
+                ((User)invocation.getArgument(0)).setId(2L);//模拟数据库自动生成id
+                return Boolean.TRUE;
+            }
+        });
+
+        Mockito.when(userMapper.selectUserById(2L)).thenReturn(user);
+
+        Mockito.when(roleMapper.selectRoleById(1)).thenReturn(role);
+
+        UserRole userRole = new UserRole();
+        userRole.setRoleId(1L);
+        userRole.setUserId(2L);
+        Mockito.when(userRoleMapper.insertUserRole(userRole)).thenReturn(Boolean.TRUE);
+
         ResultJson<UserVo> userVoResultJson = this.userService.insertUser(createDTO);
         assertNotNull(userVoResultJson);
-
+        assertEquals(100, userVoResultJson.getCode());
     }
 
     @Test

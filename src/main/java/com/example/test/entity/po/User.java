@@ -1,6 +1,5 @@
 package com.example.test.entity.po;
 
-import com.example.test.entity.vo.UserVo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
+
     private Long id;
 
     private String userName;
@@ -33,13 +33,19 @@ public class User {
 
     private Date lastLoginTime;
 
-    public User(String aa){
+    public User(String aa) {
         this.userName = aa;
     }
 
     @Override
     public boolean equals(Object obj) {
-        return id.equals(((User)obj).getId());
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof User)) {
+            return false;
+        }
+        return this.toString().equals(obj.toString());
     }
 
     @Override
@@ -47,5 +53,13 @@ public class User {
         return id.intValue();
     }
 
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", account='" + account + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }

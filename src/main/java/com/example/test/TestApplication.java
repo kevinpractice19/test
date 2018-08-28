@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@SpringBootApplication(scanBasePackages = "com.example.test")
+@SpringBootApplication(scanBasePackages = {"com.example.test"})
 @Slf4j
 @MapperScan(basePackages = "com.example.test.mapper")
 public class TestApplication {
