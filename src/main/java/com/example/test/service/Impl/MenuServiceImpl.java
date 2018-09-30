@@ -205,9 +205,9 @@ public class MenuServiceImpl implements MenuService {
         if (!this.menuMapper.updateMenuStatusById(menuId, status)) {
             return new ResultJson<>(EnumsUtils.DELETE_FAIL);
         }
-        if (!this.roleMenuMapper.updateRoleMenuStatusByMenuId(menuId,status)) {
-            return new ResultJson<>(EnumsUtils.DELETE_FAIL);
-        }
+//        if (!this.roleMenuMapper.updateRoleMenuStatusByMenuId(menuId,status)) {
+//            return new ResultJson<>(EnumsUtils.DELETE_FAIL);
+//        }
         // TODO: 2018/7/16   禁用菜单的同时也会禁用掉该菜单上面的所有按钮，还未完成
         return new ResultJson<>(EnumsUtils.SUCCESS);
     }

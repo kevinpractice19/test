@@ -30,11 +30,11 @@ public class RoleServiceImpl implements RoleService {
     @Resource(name = "roleMapper")
     private RoleMapper roleMapper;
 
-    @Resource(name = "menuMapper")
-    private MenuMapper menuMapper;
-
-    @Resource(name = "roleMenuMapper")
-    private RoleMenuMapper roleMenuMapper;
+//    @Resource(name = "menuMapper")
+//    private MenuMapper menuMapper;
+//
+//    @Resource(name = "roleMenuMapper")
+//    private RoleMenuMapper roleMenuMapper;
 
 
     @Override
@@ -59,7 +59,6 @@ public class RoleServiceImpl implements RoleService {
         Role role = this.roleMapper.selectRoleById(roleId);
         return role == null ? new ResultJson<>(EnumsUtils.FIND_FAIL) : new ResultJson<>(EnumsUtils.SUCCESS, new RoleVo(role));
     }
-
 
     @Override
     @Transactional

@@ -96,6 +96,7 @@ public class UserServiceImplTest {
         Mockito.when(userRoleMapper.insertUserRole(userRole)).thenReturn(true);
         Mockito.when(userMapper.updateUserByIdTest(user)).thenReturn(true);
 
+
     }
 
     @Test
