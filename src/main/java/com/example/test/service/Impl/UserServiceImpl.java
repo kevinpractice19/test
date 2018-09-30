@@ -47,7 +47,6 @@ public class UserServiceImpl implements UserService {
     private AuthorizationToken authorizationToken;
 
 
-
     @Override
     public ResultJson<PageInfo<UserVo>> pageUser(UserPageDTO pageDTO) {
         if (pageDTO.getPageNum() < 1) {
