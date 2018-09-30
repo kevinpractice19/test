@@ -44,7 +44,8 @@ public class UserVo implements Serializable,Cloneable{
         this.status = user.getStatus();
         this.userToken = user.getUserToken();
         this.lastLoginIp = user.getLastLoginIp();
-        this.createTime = new DateTime(user.getCreateTime()).toString("yyyy-MM-dd HH:mm:ss") ;
+        this.createTime = user.getCreateTime().toString();
+//        this.createTime = new DateTime(user.getCreateTime()).toString("yyyy-MM-dd HH:mm:ss") ;
         this.updateTime = new DateTime(user.getUpdateTime()).toString("yyyy-MM-dd HH:mm:ss") ;
     }
 
