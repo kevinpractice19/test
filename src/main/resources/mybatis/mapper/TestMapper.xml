@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.test.mapper.TestMapper">
+    <!-- 动态sql -->
+    <sql id="columnResult">
+        <![CDATA[
+
+            id,
+           name
+
+        ]]>
+    </sql>
+
+
+    <insert id="insertTest" parameterType="test" useGeneratedKeys="true" keyProperty="test.id" >
+        INSERT into noa_status_code.test(name)
+        VALUES (#{test.name})
+    </insert>
+
+    <select id="selectTestById" resultType="test">
+        SELECT <include refid="columnResult"/> FROM noa_status_code.test WHERE id=#{id}
+    </select>
+
+</mapper>

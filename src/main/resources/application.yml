@@ -7,9 +7,9 @@ spring:
    datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: org.gjt.mm.mysql.Driver
-    url: jdbc:mysql://10.45.61.136:3306/authority_management?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/noa_status_code?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
-    password: 123456
+    password: 888888
     dbcp2:
       min-idle: 5
       initial-size: 5
@@ -20,5 +20,8 @@ spring:
      port: 6379
 redis:
 server:
-  port: 8001
+  port: 8002
+org.springframework.context.ApplicationContextInitializer: com.example.test.test.LisenerTest
+
+
 

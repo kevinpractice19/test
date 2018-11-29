@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @EnableWebMvc
 @Component
-public class NoaAuthInterceptor extends HandlerInterceptorAdapter {
+public class AuthInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
     UserMapper userMapper;

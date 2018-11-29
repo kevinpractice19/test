@@ -6,7 +6,6 @@
         <sql id="columnResult">
             <![CDATA[
 
-
                 id,
                 user_id,
                 role_id

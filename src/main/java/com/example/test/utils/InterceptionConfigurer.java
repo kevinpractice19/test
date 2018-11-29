@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 public class InterceptionConfigurer extends WebMvcConfigurationSupport {
 
     @Autowired
-    NoaAuthInterceptor noaAuthInterceptor;
+    AuthInterceptor noaAuthInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

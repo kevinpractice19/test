@@ -1,10 +1,7 @@
 package com.example.test.entity.vo;
 
 import com.example.test.entity.po.Role;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.joda.time.DateTime;
 
 import java.io.Serializable;
@@ -14,6 +11,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class RoleVo implements Serializable {
     private long roleId;
 
@@ -23,7 +21,7 @@ public class RoleVo implements Serializable {
 
     private String remark;
 
-    private int status;
+    private Integer status;
 
     private String createTime;
 
