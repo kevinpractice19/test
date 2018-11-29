@@ -12,5 +12,6 @@ public class TestApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(TestApplication.class, args);
+        log.info("=========启动成功================`");
     }
 }
